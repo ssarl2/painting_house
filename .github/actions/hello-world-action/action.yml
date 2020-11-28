@@ -1,10 +1,18 @@
 name: 'Example'
-description: 'Receives file and generates output'
+author: "Hyunbin Park"
+description: 'Check if my custom action works'
 inputs:
-  file-path:  # id of input
-    description: "Path to test script"
-    required: true
-    default: 'test-file.js'
+  something:  # id of input
+    description: "I don't know what this is"
+    required: false
+    default: '1'
 outputs:
-  results-file: # id of output
-    description: "Path to results file"
+  random-number:  # id of output
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      shell: bash
