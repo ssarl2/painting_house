@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - run: ./.github/scripts/build.sh
+  deploy:
+    needs: build
+    runs-on: ubuntu-18.04
+    steps:
+      - run: ./.github/scripts/deploy.sh
