@@ -26,9 +26,11 @@ This example is web boards focusing on data input / output for easy understandin
   http://localhost:3000/App6
 
 
-sudo apt-get install nodejs-dev node-gyp libssl1.0-dev << this removes ROS
+## ERROR sudo apt-get install nodejs-dev node-gyp libssl1.0-dev << this removes ROS
 
-install npm with below commands
+### install npm with below commands
+```
 sudo apt-get install curl python-software-properties
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install nodejs
+```
