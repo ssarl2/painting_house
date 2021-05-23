@@ -1,8 +1,9 @@
-# painting_house
+# painting house
 Deploy a website with react to a server by using Github actions.
 
 ## Progress
-It just started.
+- It just started.
+- Tried to use github actions. But it doesn't make sense yet.
 
 ## Plan
 1. github (source code)
