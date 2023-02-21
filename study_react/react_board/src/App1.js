@@ -19,8 +19,15 @@ class App1 extends Component {
             }
         ]
     }
-  
+
     render() {
+
+        const al = () => {
+            alert("WAK!!");
+        };
+
+        const warning = <button onClick={al}>Wang</button>
+
         const { boards } = this.state;
         const list = boards.map(function(row){ 
             return row.brdno + row.brdwriter ;
@@ -29,6 +36,7 @@ class App1 extends Component {
         return (
             <div>
                 {list}
+                {warning}
             </div>
         );
     }
