@@ -17,20 +17,24 @@ This example is web boards focusing on data input / output for easy understandin
 - [react_firestore](https://github.com/gujc71/react_firestore): simple board(CRUD) examples for React(Redux) + Firestore
 - [firebaseExample](https://github.com/gujc71/firebaseExample): simple board(CRUD) examples for Node.js(express): + Firestore
 
-### Install & Run ###
-- git clone https://github.com/gujc71/react_board.git
+## Run
 - npm install
 - npm start
-- http://localhost:3000/App1
-  ...
-  http://localhost:3000/App6
+- http://localhost:3000/App1  
+  ...  
+  http://localhost:3000/App6  
 
 
-## ERROR sudo apt-get install nodejs-dev node-gyp libssl1.0-dev << this removes ROS
-
-### install npm with below commands
+## install npm with below commands
 ```
-sudo apt-get install curl python-software-properties
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install curl software-properties-common (at least ubuntu 20.04)
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install nodejs
 ```
+
+## Development notes
+`sudo apt-get install nodejs-dev node-gyp libssl1.0-dev` removes ROS
+
+## References
+https://github.com/gujc71/react_board.git  
+https://www.w3schools.com/react/exercise.asp?filename=exercise_getstarted1
