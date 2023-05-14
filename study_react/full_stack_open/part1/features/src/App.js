@@ -15,11 +15,15 @@ const History = (props) => {
   )
 }
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>
-    {text}
-  </button>
-)
+const Button = (props) => {
+  console.log(props)
+  const { handleClick, text } = props
+  return (
+    <button onClick={handleClick}>
+      {text}
+    </button >
+  )
+}
 
 const App = () => {
   const [left, setLeft] = useState(0)
@@ -40,6 +44,8 @@ const App = () => {
     setRight(updatedRight)
     setTotal(left + updatedRight)
   }
+
+  debugger
 
   return (
     <div>
