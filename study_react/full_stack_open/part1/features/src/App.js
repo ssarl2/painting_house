@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// This is the right place to define a component
 const Button = (props) => (
   <button onClick={props.handleClick}>
     {props.text}
@@ -13,6 +14,9 @@ const App = () => {
     console.log('value now', newValue)
     setValue(newValue)
   }
+
+  // Do not define components inside another component
+  const Display = props => <div>{props.value}</div>
 
   return (
     <div>
