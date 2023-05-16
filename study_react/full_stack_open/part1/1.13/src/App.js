@@ -16,7 +16,6 @@ const App = () => {
   const [points, setPoints] = useState(Array(8).fill(0))
 
   const getRandomNum = () => Math.floor(Math.random() * (7 - 0 + 1)) + 0
-  const index = getRandomNum()
 
   const updatePoints = (i) => {
     const copy = [...points]
@@ -33,7 +32,7 @@ const App = () => {
       <div>has {points[selected]} votes</div>
 
       <button onClick={() => { updatePoints(selected) }} >vote</button>
-      <button onClick={() => { setSelected(index) }} >next anecdote</button>
+      <button onClick={() => { setSelected(getRandomNum()) }} >next anecdote</button>
     </div>
   )
 }
