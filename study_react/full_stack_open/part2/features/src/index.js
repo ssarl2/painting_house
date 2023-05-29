@@ -15,7 +15,7 @@ const notes = [
     important: false
   },
   {
-    id: 1,
+    id: 3,
     content: 'GET and POST are the most important methods of HTTP protocol',
     important: true
   }
