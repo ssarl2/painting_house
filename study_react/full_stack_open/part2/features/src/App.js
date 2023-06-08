@@ -25,11 +25,14 @@ const App = (props) => {
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
-      id: notes.length + 1,
     }
 
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+    axios
+      .post('http://192.168.1.99:3001/notes', noteObject)
+      .then(response => {
+        console.log(response)
+      })
+
   }
 
   const handleNoteChange = (event) => {
