@@ -1,26 +1,30 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Note from './components/Note'
+import noteService from './services/notes'
 
-const addr = '192.168.1.99'
-
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
 
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get(`http://${addr}:3001/notes`)
+  useEffect(() => {
+    noteService
+      .getAll()
       .then(response => {
-        console.log('promise fulfilled')
         setNotes(response.data)
       })
-  }
+  }, [])
 
-  useEffect(hook, [])
-  console.log('render', notes.length, 'notes')
+  const toggleImportanceOf = (id) => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
+
+    noteService
+      .update(id, changedNote)
+      .then(response => {
+        setNotes(notes.map(n => n.id !== id ? n : response.data))
+      })
+  }
 
   const addNote = (event) => {
     event.preventDefault()
@@ -29,8 +33,8 @@ const App = (props) => {
       important: Math.random() < 0.5,
     }
 
-    axios
-      .post(`http://${addr}:3001/notes`, noteObject)
+    noteService
+      .create(noteObject)
       .then(response => {
         setNotes(notes.concat(response.data))
         setNewNote('')
@@ -42,15 +46,6 @@ const App = (props) => {
     setNewNote(event.target.value)
   }
 
-  const toggleImportanceOf = (id) => {
-    const url = `http://${addr}:3001/notes/${id}`
-    const note = notes.find(n => n.id === id)
-    const changedNote = { ...note, important: !note.important }
-
-    axios.put(url, changedNote).then(response => {
-      setNotes(notes.map(n => n.id !== id ? n : response.data))
-    })
-  }
 
   const notesToShow = showAll
     ? notes
