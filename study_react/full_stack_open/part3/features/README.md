@@ -5,4 +5,7 @@
 `npm start`  
 
 ## Dev
-`node_modules/.bin/nodemon index.js`  
+`npm run dev`  
+
+## Test
+`npm test`  
