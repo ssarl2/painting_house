@@ -3,3 +3,6 @@
 
 ## Run
 `npm start`  
+
+## Dev
+`node_modules/.bin/nodemon index.js`  
