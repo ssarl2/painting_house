@@ -1,5 +1,5 @@
-## Submit exercise 3.2
-[3.2: Phonebook backend step2](<https://fullstackopen.com/en/part3/node_js_and_express#exercises-3-1-3-6>)
+## Submit exercise 3.3
+[3.3: Phonebook backend step3](<https://fullstackopen.com/en/part3/node_js_and_express#exercises-3-1-3-6>)
 
 ## Install
 Delete [index.js](../../features/index.js) in the [features](../../features/) folder  
