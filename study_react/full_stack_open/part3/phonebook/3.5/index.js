@@ -54,7 +54,6 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
-  console.log('post')
   const body = request.body
 
   if (!body.name) {
