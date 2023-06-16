@@ -6,3 +6,6 @@
 `part3/features$ npm start`  
 ### Frontend
 `part2/features$ npm start`  
+
+## Frontend production build
+`npm run build`  
