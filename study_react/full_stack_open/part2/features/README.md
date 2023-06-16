@@ -9,3 +9,6 @@
 
 ## Frontend production build
 `npm run build`  
+
+## Serving static files from the backend
+`cp -r build ../../part3/features/`  
