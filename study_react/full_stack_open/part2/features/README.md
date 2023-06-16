@@ -2,5 +2,7 @@
 `npm install --no-audit`  
 
 ## Run
-`npm start`  
-`npm run server`  
+### Backend
+`part3/features$ npm start`  
+### Frontend
+`part2/features$ npm start`  

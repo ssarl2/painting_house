@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const addr = '192.168.1.99'
-const baseUrl = `http://${addr}:3001/notes`
+const baseUrl = `http://${addr}:3001/api/notes`
 
 const getAll = () => {
     const request = axios.get(baseUrl)
