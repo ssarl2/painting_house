@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../../part2/features/ && npm run build && cp -r build ../../part3/features/",
-    "deploy:uitest": "npm run build:ui && git checkout full_stack_open_deployment_uitest && git add . && git add ../../part2/features/src/ && git commit -m uibuild && git push origin full_stack_open_deployment_uitest -f && git reset HEAD^ && git stash && git checkout full_stack_open && git stash apply && rm -rf build/ && git checkout -- `git ls-files build`"
+    "deploy": "npm run build:ui && git stash && git fetch && git branch -D full_stack_open_deployment && git checkout -b full_stack_open_deployment && git stash pop && git add . && git commit -m deploy_script && git push origin full_stack_open_deployment -f && git reset HEAD^ && git stash && git checkout full_stack_open && git stash pop && rm -rf build/ && git checkout -- `git ls-files build`"
   },
   "author": "Hyunbin Park",
   "license": "MIT",
