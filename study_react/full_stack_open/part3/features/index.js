@@ -1,6 +1,26 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
+
+const password = process.env.MONGODB_PW
+if (!password) {
+  console.log('give password in .env')
+  process.exit(1)
+}
+
+const url =
+  `mongodb+srv://fullstack:${password}@cluster0.glaikk9.mongodb.net/?retryWrites=true&w=majority`
+
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -42,7 +62,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({ important: true }).then(notes => {
+    response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
