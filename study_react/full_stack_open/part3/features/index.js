@@ -4,26 +4,12 @@ const cors = require('cors')
 const app = express()
 const Note = require('./models/note')
 
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
-
-  if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
-  }
-
-  next(error)
-}
-
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
   console.log('Path  :', request.path)
   console.log('Body  :', request.body)
   console.log('---')
   next()
-}
-
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(express.static('build'))
@@ -97,7 +83,22 @@ app.post('/api/notes', (request, response) => {
   })
 })
 
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
 app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
+
 // this has to be the last loaded middleware.
 app.use(errorHandler)
 
