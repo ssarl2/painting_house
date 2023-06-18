@@ -1,0 +1,26 @@
+## Submit exercise 3.13
+[3.13: Phonebook backend step13](<https://fullstackopen.com/en/part3/saving_data_to_mongo_db#exercises-3-13-3-14>)  
+
+## Install
+`npm install`  
+`npm run build:ui`
+
+## Run
+`npm start`  
+
+## Dev
+`npm run dev`  
+
+## Deploy
+`npm run deploy`
+
+## Development notes
+```
+npm init
+npm install express
+npm install --save-dev nodemon
+npm install morgan
+npm install cors
+npm install mongoose
+npm install dotdenv
+```
