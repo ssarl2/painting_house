@@ -12,7 +12,8 @@
 `npm run dev`  
 
 ## Deploy
-`npm run deploy`
+`npm run deploy`  
+And in render, change the root directory path in Settings  
 
 ## Development notes
 ```
