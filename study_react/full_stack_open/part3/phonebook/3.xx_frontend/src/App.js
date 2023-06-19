@@ -95,12 +95,17 @@ const App = () => {
               setNotificationMessage(null)
             }, 3000)
           })
-          .catch(() => {
+          .catch(error => {
             setInlineStyle({ color: 'red' })
-            setNotificationMessage(`Information of ${targetPerson.name} has already been removed from server`)
+            if (error.response.data.name === 'ValidationError') {
+              setNotificationMessage(error.response.data.message)
+            } else {
+              setNotificationMessage(`Information of ${targetPerson.name} has already been removed from server`)
+            }
             setTimeout(() => {
               setNotificationMessage(null)
             }, 3000)
+
           })
       }
       return
@@ -114,6 +119,13 @@ const App = () => {
         setNotificationMessage(`Added ${returnedPerson.name}`)
         setNewName('')
         setNewNumber('')
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 3000)
+      })
+      .catch(error => {
+        setInlineStyle({ color: 'red' })
+        setNotificationMessage(error.response.data.message)
         setTimeout(() => {
           setNotificationMessage(null)
         }, 3000)
