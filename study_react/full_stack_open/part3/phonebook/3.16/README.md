@@ -1,5 +1,5 @@
 ## Submit exercise 3.16
-[3.16: Phonebook backend step16](<https://fullstackopen.com/en/part3/saving_data_to_mongo_db#exercises-3-15-3-18>)  
+[3.16: Phonebook database step4](<https://fullstackopen.com/en/part3/saving_data_to_mongo_db#exercises-3-15-3-18>)  
 
 ## Install
 `npm install`  
