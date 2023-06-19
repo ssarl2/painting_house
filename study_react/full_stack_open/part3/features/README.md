@@ -9,6 +9,7 @@
 
 ## Lint
 `npm run lint`  
+`npm run lint:fix`  
 
 ## Build frontend
 `npm run build:ui`  
