@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --host 0.0.0.0",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rm -rf build && cd ../3.xx_frontend/ && npm run build && cd - && cp -r ../3.xx_frontend/build .",
+    "deploy": "npm run build:ui && git stash && git fetch && git branch -D full_stack_open_deployment && git checkout -b full_stack_open_deployment && git stash pop && git add . && git add ../3.xx_frontend/ && git commit -m deploy_script && git push origin full_stack_open_deployment -f && git reset HEAD^ && git stash && git checkout full_stack_open && git stash pop && rm -rf build/ && git checkout -- `git ls-files build`",
+    "lint": "eslint .",
+    "lint:fix": "npx eslint . --fix"
+  },
+  "author": "Hyunbin Park",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.3.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "nodemon": "^2.0.22"
+  }
+}

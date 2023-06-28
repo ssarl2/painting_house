@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --host 0.0.0.0",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:backend": "git stash && git fetch && git branch -D full_stack_open_deployment && git checkout -b full_stack_open_deployment && git stash pop && git add . && git commit -m backendtest && git push origin full_stack_open_deployment -f && git reset HEAD^ && git stash && git checkout full_stack_open && git stash pop"
+  },
+  "author": "Hyunbin Park",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
