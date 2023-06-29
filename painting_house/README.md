@@ -11,3 +11,5 @@ Deploy a website with react to a server by using Github actions.
 3. github page (web server)
 4. React (Frontend frame work)
 5. Express js (node.js) (REST API server in amazon light sail) (edited)
+6. Mongo DB
+7. Render deploy
