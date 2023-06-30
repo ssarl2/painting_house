@@ -1,0 +1,11 @@
+{
+  "name": "painting_house",
+  "version": "0.0.1",
+  "description": "Deploy a website with react to a server by using Github actions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hyunbin Park",
+  "license": "ISC"
+}

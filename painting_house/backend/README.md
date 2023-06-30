@@ -1,0 +1,4 @@
+## Development notes
+```
+npm init
+```
