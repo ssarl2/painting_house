@@ -23,5 +23,5 @@ npm install --save-dev nodemon
 npm install morgan
 npm install cors
 npm install mongoose
-npm install dotdenv
+npm install dotenv
 ```
