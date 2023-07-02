@@ -1,0 +1,28 @@
+{
+    "users": [
+        {
+            "email":"example@ab.c",
+            "password":"pw",
+            "profile": {
+                "nickname":"user1",
+                "image":"default"
+            }
+        },
+        {
+            "email":"example@ab.c",
+            "password":"pw",
+            "profile": {
+                "nickname":"user2",
+                "image":"default"
+            }
+        },
+        {
+            "email":"example@ab.c",
+            "password":"pw",
+            "profile": {
+                "nickname":"user3",
+                "image":"default"
+            }
+        }
+    ]
+}

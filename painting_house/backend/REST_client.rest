@@ -1,0 +1,29 @@
+GET http://192.168.1.99:3001/api/persons/648f71d0f4c85c20620cfe93
+
+###
+POST http://192.168.1.99:3001/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"example@bwg.w",
+    "password":"1",
+    "profile": {
+        "nickname":"user2"
+    }
+}
+
+###
+DELETE http://192.168.1.99:3001/api/users/64a190f714cf0a76d4c864cd HTTP/1.1
+Content-Type: application/json
+
+###
+PUT http://192.168.1.99:3001/api/users/64a19fac14cf0a76d4c864d4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"example@abw.w",
+    "password":"qwd",
+    "profile": {
+        "nickname":"user1"
+    }
+}

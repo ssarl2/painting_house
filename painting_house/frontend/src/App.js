@@ -1,6 +1,6 @@
 import Content from './components/Content'
 
-const Comments = () => {
+const Comment = () => {
   return (
     <div>
       comments
@@ -8,13 +8,20 @@ const Comments = () => {
   )
 }
 
-const App = () => {
+const Post = () => {
+  return (
+    <div>
+      <Content />
+      <Comment />
+    </div>
+  )
+}
 
+const App = () => {
   return (
     <div>
       <h2>Painting house</h2>
-      <Content />
-      <Comments />
+      <Post />
     </div>
   )
 }
