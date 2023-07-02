@@ -1,4 +1,4 @@
-GET http://192.168.1.99:3001/api/persons/648f71d0f4c85c20620cfe93
+GET http://192.168.1.99:3001/api/users/648f71d0f4c85c20620cfe93
 
 ###
 POST http://192.168.1.99:3001/api/users HTTP/1.1
@@ -26,4 +26,80 @@ Content-Type: application/json
     "profile": {
         "nickname":"user1"
     }
+}
+
+###############################################
+
+GET http://192.168.1.99:3001/api/posts/648f71d0f4c85c20620cfe93
+
+###
+POST http://192.168.1.99:3001/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "mushroom world",
+    "category": "fantasy",
+    "images": [
+        "image1",
+        "image2"
+    ],
+    "comments": [],
+    "tags": [
+        "tag1"
+    ],
+    "author":"users.profile.nickname"
+}
+
+###
+POST http://192.168.1.99:3001/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "dog hotdog",
+    "category": "funny",
+    "images": [
+        "image1"
+    ],
+    "tags": [
+        "tag1",
+        "tag2"
+    ]
+}
+
+###
+POST http://192.168.1.99:3001/api/posts HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Dancing moomin",
+    "images": [
+        "image1"
+    ]
+}
+
+###
+DELETE http://192.168.1.99:3001/api/posts/64a1c3fd50a6aa8cc64f5814 HTTP/1.1
+Content-Type: application/json
+
+###
+PUT http://192.168.1.99:3001/api/posts/64a1bea0fccaaf3ac1251b29 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "habanero sauna",
+    "category": "hell",
+    "images": [
+        "image1",
+        "image2",
+        "image3"
+    ],
+    "comments": [
+        "wow",
+        "How??"
+    ],
+    "tags": [
+        "tag1",
+        "tag2"
+    ],
+    "author":"users.profile.nickname"
 }

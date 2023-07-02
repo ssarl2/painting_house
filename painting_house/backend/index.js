@@ -74,14 +74,15 @@ app.put('/api/users/:id', (request, response, next) => {
 
   User.findById(request.params.id)
     .then(notUpdatedUser => {
-      if (notUpdatedUser) {
+      const nuu = notUpdatedUser
+      if (nuu) {
 
         const user = {
           email: body.email,
-          password: body.password === "" || body.password === undefined ? notUpdatedUser.password : body.password,
+          password: body.password === "" || body.password === undefined ? nuu.password : body.password,
           profile: {
-            nickname: body.profile.nickname === "" || body.profile.nickname === undefined ? notUpdatedUser.profile.nickname : body.profile.nickname,
-            image: (body.profile.image === "" || body.profile.image === undefined) ? notUpdatedUser.profile.image : body.profile.image
+            nickname: body.profile.nickname === "" || body.profile.nickname === undefined ? nuu.profile.nickname : body.profile.nickname,
+            image: (body.profile.image === "" || body.profile.image === undefined) ? nuu.profile.image : body.profile.image
           }
         }
 
@@ -148,6 +149,110 @@ app.post('/api/users', (request, response, next) => {
 
       user.save().then(savedUser => {
         response.json(savedUser)
+      })
+        .catch(error => next(error))
+    })
+})
+
+app.get('/api/posts', (request, response, next) => {
+  Post.find({}).then(posts => {
+    response.json(posts)
+  })
+    .catch(error => next(error))
+})
+
+app.get('/api/posts/:id', (request, response, next) => {
+  Post.findById(request.params.id)
+    .then(post => {
+      if (post) {
+        response.json(post)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
+
+app.delete('/api/posts/:id', (request, response, next) => {
+  Post.findByIdAndRemove(request.params.id)
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
+app.put('/api/posts/:id', (request, response, next) => {
+  const body = request.body
+
+  Post.findById(request.params.id)
+    .then(notUpdatedPost => {
+      const nup = notUpdatedPost
+      if (nup) {
+
+        const post = {
+          title: nup.title,
+          category: body.category === "" || body.category === undefined ? nup.category : body.category,
+          like: body.like === "" || body.like === undefined ? nup.like : body.like,
+          images: nup.images,
+          comments: body.comments === "" || body.comments === undefined ? nup.comments : body.comments,
+          tags: body.tags === "" || body.tags === undefined ? nup.tags : body.tags,
+          author: nup.author
+        }
+
+        Post.findByIdAndUpdate(request.params.id, post, { new: true })
+          .then(updatedPost => {
+            response.json(updatedPost)
+          })
+          .catch(error => next(error))
+
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
+
+app.post('/api/posts', (request, response, next) => {
+  const body = request.body
+
+  const missing = []
+
+  const t = body.title
+  if (t === undefined || t === "") {
+    missing.push('title')
+  }
+
+  const i = body.images
+  if (i === undefined || i === "") {
+    missing.push('images')
+  }
+
+  if (missing.length > 0) {
+    return response.status(400).json({
+      error: `Missing ${missing.join(', ')}`
+    })
+  }
+
+  Post.findOne({ title: body.title })
+    .then(existingTitle => {
+      if (existingTitle) {
+        return response.status(400).json({
+          error: `The title '${body.title}' already exists`
+        })
+      }
+
+      const post = new Post({
+        title: body.title,
+        category: body.category === "" ? "Normal" : body.category,
+        like: "0",
+        images: body.images,
+        comments: [],
+        tags: body.tags !== undefined ? body.tags : [],
+        author: "implement login feature later"
+      })
+
+      post.save().then(savedPost => {
+        response.json(savedPost)
       })
         .catch(error => next(error))
     })
