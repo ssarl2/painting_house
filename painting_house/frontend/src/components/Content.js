@@ -20,10 +20,27 @@ const Content = () => {
         <div>
             <div>category</div>
             <div>title</div>
-            <div>images</div>
-            <div>description</div>
-            <Profile />
-            <div>{likes}</div>
+            <table border='1'>
+                <tr>
+                    <td>images</td>
+                    <td>
+                        <table border='1'>
+                            <div>
+                                description
+                                <div>tags</div>
+                            </div>
+                            <tr>
+                                <td>
+                                    <Profile />
+                                </td>
+                                <td>
+                                    {likes}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
     )
 }
