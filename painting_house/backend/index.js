@@ -192,6 +192,7 @@ app.put('/api/posts/:id', (request, response, next) => {
         const post = {
           title: nup.title,
           category: body.category === "" || body.category === undefined ? nup.category : body.category,
+          description: body.description === "" || body.description === undefined ? nup.description : body.description,
           like: body.like === "" || body.like === undefined ? nup.like : body.like,
           images: nup.images,
           comments: body.comments === "" || body.comments === undefined ? nup.comments : body.comments,
@@ -244,9 +245,10 @@ app.post('/api/posts', (request, response, next) => {
       const post = new Post({
         title: body.title,
         category: body.category === "" ? "Normal" : body.category,
+        description: body.description,
         like: "0",
         images: body.images,
-        comments: [],
+        comments: body.comments,
         tags: body.tags !== undefined ? body.tags : [],
         author: "implement login feature later"
       })

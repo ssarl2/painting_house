@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
 const postSchema = new mongoose.Schema({
     title: String,
     category: String,
+    description: String,
     like: String,
     images: [String],
     comments: [String],

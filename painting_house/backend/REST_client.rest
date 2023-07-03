@@ -37,15 +37,28 @@ POST http://192.168.1.99:3001/api/posts HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "mushroom world",
-    "category": "fantasy",
+    "title": "Scream",
+    "category": "weird",
+    "description": "Uuuu",
     "images": [
         "image1",
-        "image2"
+        "image2",
+        "image3",
+        "image4",
+        "image5",
+        "image6"
     ],
-    "comments": [],
+    "comments": [
+        "Well....",
+        "OMG"
+    ],
     "tags": [
-        "tag1"
+        "tag1",
+        "tag2",
+        "tag3",
+        "tag4",
+        "tag5",
+        "tag6"
     ],
     "author":"users.profile.nickname"
 }
@@ -78,16 +91,17 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://192.168.1.99:3001/api/posts/64a1c3fd50a6aa8cc64f5814 HTTP/1.1
+DELETE http://192.168.1.99:3001/api/posts/64a2c6abd466318e87db0564 HTTP/1.1
 Content-Type: application/json
 
 ###
-PUT http://192.168.1.99:3001/api/posts/64a1bea0fccaaf3ac1251b29 HTTP/1.1
+PUT http://192.168.1.99:3001/api/posts/64a2c6fd2e688d37ada1f7ea HTTP/1.1
 Content-Type: application/json
 
 {
     "title": "habanero sauna",
     "category": "hell",
+    "description": ":)",
     "images": [
         "image1",
         "image2",

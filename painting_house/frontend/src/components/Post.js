@@ -32,7 +32,7 @@ const Post = ({ post }) => {
                                     <tr>
                                         <td>
                                             <div>
-                                                description
+                                                {post.description}
                                                 <div>{post.tags.join(", ")}</div>
                                             </div>
                                         </td>
