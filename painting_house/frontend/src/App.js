@@ -1,27 +1,25 @@
-import Content from './components/Content'
+import { useState, useEffect } from 'react'
+import Post from './components/Post'
+import dbConnection from './services/dbConnection'
 
-const Comment = () => {
-  return (
-    <div>
-      comments
-    </div>
-  )
-}
-
-const Post = () => {
-  return (
-    <div>
-      <Content />
-      <Comment />
-    </div>
-  )
-}
+const POST_DB = 'posts'
 
 const App = () => {
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    dbConnection
+      .getData(POST_DB)
+      .then(postsFromDB => setPosts(postsFromDB))
+  }, [])
+
   return (
     <div>
       <h2>Painting house</h2>
-      <Post />
+      {
+        posts.map(post => <Post key={post.id} post={post} />)
+      }
+
     </div>
   )
 }
