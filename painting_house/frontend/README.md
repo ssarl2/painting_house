@@ -9,5 +9,5 @@ npm install axios
 npm install react-router-dom
 ```
 ## References
-### Design
-Dribbble - [reference](frontend/reference.png)
+Design, Dribbble - [reference](frontend/reference.png)  
+Linking pages - [reference](https://stackoverflow.com/questions/63124161/attempted-import-error-switch-is-not-exported-from-react-router-dom)
