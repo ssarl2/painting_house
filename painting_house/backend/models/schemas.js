@@ -35,14 +35,24 @@ const userSchema = new mongoose.Schema({
 })
 
 const postSchema = new mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     category: String,
     description: String,
     like: String,
-    images: [String],
+    images: {
+        type: [String],
+        required: true
+
+    },
     comments: [String],
     tags: [String],
-    author: String,
+    author: {
+        type: String,
+        required: true
+    },
 })
 
 userSchema.set('toJSON', {
