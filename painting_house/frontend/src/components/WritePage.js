@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import dbConnection from '../services/dbConnection'
+import ImageUploader from './ImageUploader'
 
 const POST_DB = 'posts'
 
 const WritePage = () => {
     const [newTitle, setNewTitle] = useState('')
     const [newCategory, setNewCategory] = useState('')
-    const [newImages, setNewImages] = useState([]) //TODO support to upload images
+    const [selectedImages, setSelectedImages] = useState([])
     const [newDescription, setNewDescription] = useState('')
     const [newTags, setNewTags] = useState([])
     const [newAuthor, setNewAuthor] = useState('') //TODO fetch author's info automatically
@@ -18,18 +19,25 @@ const WritePage = () => {
         const postObject = {
             title: newTitle,
             category: newCategory,
-            images: newImages,
+            images: [], // will be handled in backend
             description: newDescription,
             tags: newTags,
             author: newAuthor
         }
 
+        const formData = new FormData()
+        selectedImages.forEach(file => {
+            formData.append('images', file)
+        })
+
+        formData.append('postObject', JSON.stringify(postObject))
+
         dbConnection
-            .createData(postObject, POST_DB)
+            .createData(formData, POST_DB)
             .then(returnedObject => {
                 setNewTitle('')
                 setNewCategory('')
-                setNewImages([])
+                setSelectedImages([])
                 setNewDescription('')
                 setNewTags([])
             })
@@ -45,9 +53,7 @@ const WritePage = () => {
                 <div>
                     category: <input value={newCategory} onChange={(event) => setNewCategory(event.target.value)} />
                 </div>
-                <div>
-                    images: <input value={newImages.join(',')} onChange={(event) => setNewImages(event.target.value.split(','))} />
-                </div>
+                <ImageUploader selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
                 <div>
                     description: <input value={newDescription} onChange={(event) => setNewDescription(event.target.value)} />
                 </div>
