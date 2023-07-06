@@ -1,5 +1,12 @@
 const { Mongoose } = require('./mongooseConnection')
 
+const imageSchema = new Mongoose.Schema({
+    images: {
+        name: String,
+        data: Buffer,
+    }
+})
+
 const postSchema = new Mongoose.Schema({
     title: {
         type: String,
@@ -9,9 +16,8 @@ const postSchema = new Mongoose.Schema({
     description: String,
     like: String,
     images: {
-        type: [String],
+        type: [imageSchema],
         required: true
-
     },
     comments: [String],
     tags: [String],

@@ -23,7 +23,8 @@ const Post = ({ post }) => {
             <table border='1'>
                 <tbody>
                     <tr>
-                        <td>{post.images.map(image => <div key={image}>{image}</div>)}</td>
+                        {/* <td>{post.images.map(image => <div key={image}>{image}</div>)}</td> */}
+                        <td>temp</td>
                         <td>
                             <table border='1'>
                                 <tbody>

@@ -1,9 +1,12 @@
 require('dotenv').config()
+const multer = require('multer')
+const fs = require('fs');
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
-const { User, Post } = require('./models/schemas')
+const { User } = require('./models/user')
+const { Post } = require('./models/post')
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -213,17 +216,19 @@ app.put('/api/posts/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/posts', (request, response, next) => {
-  const body = request.body
+const upload = multer({ dest: 'uploads/' })
+app.post('/api/posts', upload.array('images'), (request, response, next) => {
+  const images = request.files
+  const postObject = JSON.parse(request.body.postObject)
 
   const missing = []
 
-  const t = body.title
+  const t = postObject.title
   if (t === undefined || t === "") {
     missing.push('title')
   }
 
-  const i = body.images
+  const i = images
   if (i === undefined || i === "") {
     missing.push('images')
   }
@@ -234,22 +239,29 @@ app.post('/api/posts', (request, response, next) => {
     })
   }
 
-  Post.findOne({ title: body.title })
+  Post.findOne({ title: postObject.title })
     .then(existingTitle => {
       if (existingTitle) {
         return response.status(400).json({
-          error: `The title '${body.title}' already exists`
+          error: `The title '${postObject.title}' already exists`
         })
       }
 
+      const imageBuffers = []
+      for (const file of request.files) {
+        const data = fs.readFileSync(file.path)
+        const image = { name: file.originalname, data: data }
+        imageBuffers.push(image)
+      }
+
       const post = new Post({
-        title: body.title,
-        category: body.category === "" ? "Normal" : body.category,
-        description: body.description,
+        title: postObject.title,
+        category: postObject.category === "" ? "Normal" : postObject.category,
+        description: postObject.description,
         like: "0",
-        images: body.images,
-        comments: body.comments,
-        tags: body.tags !== undefined ? body.tags : [],
+        images: imageBuffers, // and now it's handled here
+        comments: postObject.comments,
+        tags: postObject.tags !== undefined ? postObject.tags : [],
         author: "implement login feature later"
       })
 
