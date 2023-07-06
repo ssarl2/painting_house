@@ -13,4 +13,5 @@ npm install morgan
 npm install cors
 npm install mongoose
 npm install dotenv
+npm install multer
 ```
