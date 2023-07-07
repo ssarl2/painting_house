@@ -27,7 +27,7 @@ const Post = ({ post }) => {
                     <tr>
                         <td>
                             {post.images.map((image, index) => (
-                                <img src={`data:${image.contentType};base64,${Buffer.from(image.data).toString('base64')}`} alt={image.name} key={index} />
+                                <img className='postImage' src={`data:${image.contentType};base64,${Buffer.from(image.data).toString('base64')}`} alt={image.name} key={index} />
                             ))}
                         </td>
                         <td>
