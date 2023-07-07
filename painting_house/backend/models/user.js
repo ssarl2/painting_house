@@ -8,9 +8,9 @@ const profileSchema = new Mongoose.Schema({
     }
 }, {
     toJSON: {
-        transform: (document, returnedObject) => {
-            delete returnedObject._id; // Exclude _id field
-        }
+        transform: function (document, returnedObject) {
+            delete returnedObject._id; // Exclude _id field from the transformed object
+        },
     }
 })
 

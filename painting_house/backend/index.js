@@ -250,7 +250,7 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
       const imageBuffers = []
       for (const file of request.files) {
         const data = fs.readFileSync(file.path)
-        const image = { name: file.originalname, data: data }
+        const image = { name: file.originalname, data: data, contentType: file.mimetype }
         imageBuffers.push(image)
       }
 
