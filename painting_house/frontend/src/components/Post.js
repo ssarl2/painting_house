@@ -23,8 +23,11 @@ const Post = ({ post }) => {
             <table border='1'>
                 <tbody>
                     <tr>
-                        {/* <td>{post.images.map(image => <div key={image}>{image}</div>)}</td> */}
-                        <td>temp</td>
+                        <td>
+                            {post.images.map((image, index) => (
+                                <img src={`data:${image.contentType};base64,${image.data.toString('base64')}`} alt={image.name} key={index} />
+                            ))}
+                        </td>
                         <td>
                             <table border='1'>
                                 <tbody>
