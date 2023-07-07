@@ -8,6 +8,7 @@ npx create-react-app painting_house
 npm install axios
 npm install react-router-dom
 npm install react-dropzone
+npm install buffer
 ```
 ## References
 Design, Dribbble - [reference](frontend/reference.png)  
