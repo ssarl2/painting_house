@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import Post from '../components/Post'
+import Post from './Post'
 import dbConnection from '../services/dbConnection'
 
 const POST_DB = 'posts'
@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <div>
       {
-        posts.map(post => <Post key={post.id} post={post} />)
+        posts.map(post => <Post key={post.id} post={post} setPosts={setPosts} />)
       }
     </div>
   )

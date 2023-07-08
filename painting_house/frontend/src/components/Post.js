@@ -1,4 +1,7 @@
+import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
+
+const POST_DB = 'posts'
 
 const Comment = ({ comment }) => {
     return (
@@ -17,7 +20,16 @@ const Profile = () => {
     )
 }
 
-const Post = ({ post }) => {
+const Post = ({ post, setPosts }) => {
+
+    const handleClick = (id, title) => {
+        if (window.confirm(`Delete ${title}?`))
+            dbConnection
+                .deleteData(id, title, POST_DB)
+                .then(() => { return dbConnection.getData(POST_DB) })
+                .then(currentPosts => setPosts(currentPosts))
+    }
+
     return (
         <div>
             <table border='1'>
@@ -57,7 +69,7 @@ const Post = ({ post }) => {
                     </tr>
                     <tr>
                         <td colSpan='2'>
-                            <button style={{ float: 'right' }}>delete</button>
+                            <button onClick={() => { handleClick(post.id, post.title) }} style={{ float: 'right' }}>delete</button>
                         </td>
                     </tr>
                     <tr>
