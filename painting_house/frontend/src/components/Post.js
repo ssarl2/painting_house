@@ -1,12 +1,46 @@
+import { useState, useEffect } from 'react'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 
 const POST_DB = 'posts'
 
-const Comment = ({ comment }) => {
+const Comment = ({ post }) => {
+    const id = post.id
+    const [inputValue, setInputValue] = useState('')
+    const [comments, setComments] = useState(post.comments)
+    const [updateComments, setUpdateComments] = useState(false)
+
+    const handleClick = (comment) => {
+        setComments([...comments, comment])
+        setUpdateComments(true)
+    }
+
+    useEffect(() => {
+        if (updateComments) {
+            const updatedPost = { ...post, comments: comments }
+            dbConnection
+                .updateData(id, updatedPost, POST_DB)
+                .then(() => { return dbConnection.getDataById(id, POST_DB) })
+                .then(currentPost => {
+                    console.log(currentPost)
+                    setComments(currentPost.comments)
+                    setInputValue('')
+                    setUpdateComments(false)
+                })
+        }
+    }, [updateComments])
+
     return (
         <div>
-            {comment}
+            {
+                comments.map(comment => <div key={comment}>
+                    {comment}
+                </div>)
+            }
+            <div style={{ display: 'flex' }}>
+                <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                <button onClick={() => { handleClick(inputValue) }}>Comment</button>
+            </div>
         </div>
     )
 }
@@ -83,10 +117,9 @@ const Post = ({ post, setPosts }) => {
                     </tr>
                     <tr>
                         <td colSpan='2'>
-                            {
-                                post.comments.map(comment => <Comment key={comment} comment={comment} />)
-                            }
+                            <Comment post={post} />
                         </td>
+
                     </tr>
                 </tbody>
             </table>

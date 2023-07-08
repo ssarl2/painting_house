@@ -8,6 +8,11 @@ const getData = (data) => {
     return request.then(response => response.data)
 }
 
+const getDataById = (id, data) => {
+    const request = axios.get(`${baseUrl}/${data}/${id}`)
+    return request.then(response => response.data)
+}
+
 const createData = (newObject, data) => {
     const request = axios.post(`${baseUrl}/${data}`, newObject)
     return request.then(response => response.data)
@@ -24,4 +29,4 @@ const updateData = (id, newObject, data) => {
     return request.then(response => response.data)
 }
 
-export default { getData, createData, deleteData, updateData }
+export default { getData, getDataById, createData, deleteData, updateData }
