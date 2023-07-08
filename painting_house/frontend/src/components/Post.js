@@ -45,26 +45,35 @@ const Post = ({ post, setPosts }) => {
                             <ImageHandler images={post.images} />
                         </td>
                         <td>
-                            <tr>
-                                <td>
-                                    <div>
-                                        {post.description}
-                                        <div>{post.tags.join(", ")}</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
+                            <table border='1'>
+                                <tbody>
                                     <tr>
                                         <td>
-                                            <Profile />
-                                        </td>
-                                        <td>
-                                            {post.like}
+                                            <div>
+                                                {post.description}
+                                                <div>{post.tags.join(", ")}</div>
+                                            </div>
                                         </td>
                                     </tr>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <td>
+                                            <table border='1'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <Profile />
+                                                        </td>
+                                                        <td>
+                                                            {post.like}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
                     <tr>

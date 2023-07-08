@@ -13,4 +13,5 @@ npm install react-swipeable
 ```
 ## References
 Design, Dribbble - [reference](frontend/reference.png)  
-Linking pages - [reference](https://stackoverflow.com/questions/63124161/attempted-import-error-switch-is-not-exported-from-react-router-dom)
+Linking pages - [reference](https://stackoverflow.com/questions/63124161/attempted-import-error-switch-is-not-exported-from-react-router-dom)  
+\<tr\> tag cannot be a child of \<td\> tag - [reference](<https://stackoverflow.com/questions/41716528/react-tr-cannot-appear-as-a-child-of-td-see-comment-td-tr>)  
