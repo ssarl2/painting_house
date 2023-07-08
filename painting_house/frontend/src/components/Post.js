@@ -20,50 +20,55 @@ const Profile = () => {
 const Post = ({ post }) => {
     return (
         <div>
-            <div>{post.category}</div>
-            <div>{post.title}</div>
             <table border='1'>
                 <tbody>
+                    <tr>
+                        <td colSpan='2'>{post.category}</td>
+                    </tr>
+                    <tr>
+                        <td colSpan='2'>{post.title}</td>
+                    </tr>
                     <tr>
                         <td>
                             <ImageHandler images={post.images} />
                         </td>
                         <td>
-                            <table border='1'>
-                                <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        {post.description}
+                                        <div>{post.tags.join(", ")}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <tr>
                                         <td>
-                                            <div>
-                                                {post.description}
-                                                <div>{post.tags.join(", ")}</div>
-                                            </div>
+                                            <Profile />
                                         </td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                            <table border='1'>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <Profile />
-                                                        </td>
-                                                        <td>
-                                                            {post.like}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            {post.like}
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </td>
+                            </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan='2'>
+                            <button style={{ float: 'right' }}>delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan='2'>
+                            {
+                                post.comments.map(comment => <Comment key={comment} comment={comment} />)
+                            }
                         </td>
                     </tr>
                 </tbody>
             </table>
-            {
-                post.comments.map(comment => <Comment key={comment} comment={comment} />)
-            }
         </div>
     )
 }
