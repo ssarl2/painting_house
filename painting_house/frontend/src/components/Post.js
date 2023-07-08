@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer'
+import ImageHandler from './ImageHandler'
 
 const Comment = ({ comment }) => {
     return (
@@ -26,9 +26,7 @@ const Post = ({ post }) => {
                 <tbody>
                     <tr>
                         <td>
-                            {post.images.map((image, index) => (
-                                <img className='postImage' src={`data:${image.contentType};base64,${Buffer.from(image.data).toString('base64')}`} alt={image.name} key={index} />
-                            ))}
+                            <ImageHandler images={post.images} />
                         </td>
                         <td>
                             <table border='1'>

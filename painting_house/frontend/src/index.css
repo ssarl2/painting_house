@@ -1,4 +1,24 @@
 .postImage {
     width: 40vw;
     height: 40vw;
+    object-fit: contain;
+}
+
+.main {
+    overflow: hidden;
+    position: relative;
+}
+
+.swiper {
+    display: flex;
+    overflow-x: visible;
+}
+
+.postImageIndex {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 4px;
+    border: none;
+    padding: 0;
 }
