@@ -66,7 +66,7 @@ const Post = ({ post, setPosts }) => {
 
     return (
         <div>
-            <table border='1'>
+            <table border='1' style={{ width: '100%' }}>
                 <tbody>
                     <tr>
                         <td colSpan='2'>{post.category}</td>
@@ -75,7 +75,7 @@ const Post = ({ post, setPosts }) => {
                         <td colSpan='2'>{post.title}</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style={{ width: '40vw' }}>
                             <ImageHandler images={post.images} />
                         </td>
                         <td>

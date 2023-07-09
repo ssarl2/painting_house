@@ -1,12 +1,7 @@
 .postImage {
-    width: 40vw;
+    width: 100%;
     height: 40vw;
     object-fit: contain;
-}
-
-.main {
-    overflow: hidden;
-    position: relative;
 }
 
 .swiper {
