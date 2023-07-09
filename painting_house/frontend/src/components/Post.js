@@ -75,15 +75,15 @@ const Post = ({ post, setPosts }) => {
                         <td colSpan='2'>{post.title}</td>
                     </tr>
                     <tr>
-                        <td style={{ width: '40vw' }}>
+                        <td style={{ width: '40%' }}>
                             <ImageHandler images={post.images} />
                         </td>
-                        <td>
-                            <table border='1'>
+                        <td style={{ width: '60%' }}>
+                            <table border='1' style={{ width: '100%' }}>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div>
+                                            <div style={{ height: '30vw' }}>
                                                 {post.description}
                                                 <div>{post.tags.join(", ")}</div>
                                             </div>
@@ -91,13 +91,13 @@ const Post = ({ post, setPosts }) => {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table border='1'>
+                                            <table border='1' style={{ width: '100%', height: '10vw' }}>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style={{ width: '85%' }}>
                                                             <Profile />
                                                         </td>
-                                                        <td>
+                                                        <td style={{ width: '15%' }}>
                                                             {post.like}
                                                         </td>
                                                     </tr>
