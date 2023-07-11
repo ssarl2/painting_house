@@ -36,3 +36,13 @@
 .postDescriptionAndTagsBox::-webkit-scrollbar-thumb {
     background-color: transparent;
 }
+
+.postTextExpendingButton {
+    color: gray;
+    background: none;
+    border: none;
+}
+
+.hidePostTextExpendingButton {
+    visibility: hidden;
+}

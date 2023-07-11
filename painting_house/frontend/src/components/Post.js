@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
+import PostDescriptionAndTags from './PostDescriptionAndTags'
 
 const POST_DB = 'posts'
 
@@ -55,28 +56,6 @@ const Profile = () => {
 }
 
 const Post = ({ post, setPosts }) => {
-    const [descAndTags, setDescAndTags] = useState('')
-    const [isExpanded, setIsExpanded] = useState(false)
-    const descAndTagsMaxLength = 120 // Maximum number of characters to display initially
-
-    useEffect(() => {
-        const tags = post.tags.map(tag => `#${tag}`).join(' ')
-        const combineDescAndTags = post.description !== '' ? `${post.description}, ${tags}` : `${tags}`
-        setDescAndTags(combineDescAndTags)
-    }, [post.description, post.tags])
-
-    const toggleExpand = () => {
-        setIsExpanded(!isExpanded)
-    }
-
-    const renderDescription = () => {
-        if (isExpanded || descAndTags.length <= descAndTagsMaxLength) {
-            return descAndTags
-        } else {
-            return descAndTags.slice(0, descAndTagsMaxLength)
-        }
-    }
-
     const handleClick = (id, title) => {
         if (window.confirm(`Delete ${title}?`))
             dbConnection
@@ -104,12 +83,7 @@ const Post = ({ post, setPosts }) => {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div className='postDescriptionAndTagsBox'>
-                                                {renderDescription()}{!isExpanded && descAndTags.length > descAndTagsMaxLength && (<button style={{ color: 'gray', background: 'none', border: 'none' }} onClick={toggleExpand}>...more</button>)}
-                                                {isExpanded && descAndTags.length > descAndTagsMaxLength && (
-                                                    <button style={{ color: 'gray', background: 'none', border: 'none' }} onClick={toggleExpand}>...less</button>
-                                                )}
-                                            </div>
+                                            <PostDescriptionAndTags postDescription={post.description} postTags={post.tags} />
                                         </td>
                                     </tr>
                                     <tr>
