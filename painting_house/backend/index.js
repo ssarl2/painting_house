@@ -193,7 +193,7 @@ app.put('/api/posts/:id', (request, response, next) => {
       if (nup) {
 
         const post = {
-          title: nup.title,
+          title: body.title === "" || body.title === undefined ? nup.title : body.title,
           category: body.category === "" || body.category === undefined ? nup.category : body.category,
           description: body.description === "" || body.description === undefined ? nup.description : body.description,
           like: body.like === "" || body.like === undefined ? nup.like : body.like,

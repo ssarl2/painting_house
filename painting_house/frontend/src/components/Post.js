@@ -59,8 +59,8 @@ const Profile = () => {
 const Post = ({ post, setPosts }) => {
 
     const navigate = useNavigate()
-    const handleEditClick = (id) => {
-        navigate(`/edit/${id}`)
+    const handleEditClick = (id, title, category, description, tags) => {
+        navigate(`/edit/${id}`, { state: { postTitle: title, postCategory: category, postDescription: description, postTags: tags } })
     }
 
     const handleDeleteClick = (id, title) => {
@@ -116,7 +116,7 @@ const Post = ({ post, setPosts }) => {
                     <tr>
                         <td colSpan='2'>
                             <button onClick={() => { handleDeleteClick(post.id, post.title) }} style={{ float: 'right' }}>Delete</button>
-                            <button onClick={() => { handleEditClick(post.id) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
+                            <button onClick={() => { handleEditClick(post.id, post.title, post.category, post.description, post.tags) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
                         </td>
                     </tr>
                     <tr>
