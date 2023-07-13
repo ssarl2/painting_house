@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 import PostDescriptionAndTags from './PostDescriptionAndTags'
@@ -56,7 +57,13 @@ const Profile = () => {
 }
 
 const Post = ({ post, setPosts }) => {
-    const handleClick = (id, title) => {
+
+    const navigate = useNavigate()
+    const handleEditClick = (id) => {
+        navigate(`/edit/${id}`)
+    }
+
+    const handleDeleteClick = (id, title) => {
         if (window.confirm(`Delete ${title}?`))
             dbConnection
                 .deleteData(id, title, POST_DB)
@@ -100,7 +107,6 @@ const Post = ({ post, setPosts }) => {
                                                     </tr>
                                                 </tbody>
                                             </table>
-
                                         </td>
                                     </tr>
                                 </tbody>
@@ -109,7 +115,8 @@ const Post = ({ post, setPosts }) => {
                     </tr>
                     <tr>
                         <td colSpan='2'>
-                            <button onClick={() => { handleClick(post.id, post.title) }} style={{ float: 'right' }}>delete</button>
+                            <button onClick={() => { handleDeleteClick(post.id, post.title) }} style={{ float: 'right' }}>Delete</button>
+                            <button onClick={() => { handleEditClick(post.id) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
                         </td>
                     </tr>
                     <tr>
