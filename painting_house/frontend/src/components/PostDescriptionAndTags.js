@@ -12,14 +12,14 @@ const PostDescriptionAndTags = ({ postDescription, postTags }) => {
     useEffect(() => {
         const tags = postTags.map(tag => `#${tag}`).join(' ')
         setDescAndTags(`${postDescription} ${tags}`)
-        setCalcText(`${postDescription}`)
+        setCalcText(`${postDescription} ${tags}`)
     }, [postDescription, postTags])
 
     useEffect(() => {
         if (descAndTags.length > maxLength) {
             setVisibleMore(true)
         }
-    }, [descAndTags])
+    }, [maxLength])
 
     useEffect(() => {
         calcMaxLength()
