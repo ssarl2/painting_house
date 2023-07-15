@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <div>
       {
-        posts.map(post => <Post key={post.id} post={post} setPosts={setPosts} />)
+        posts.map(post => <Post key={post.id} parentPost={post} setPosts={setPosts} />)
       }
     </div>
   )

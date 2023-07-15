@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 import PostDescriptionAndTags from './PostDescriptionAndTags'
@@ -56,11 +56,29 @@ const Profile = () => {
     )
 }
 
-const Post = ({ post, setPosts }) => {
+const Post = ({ parentPost, setPosts }) => {
+
+    const [post, setPost] = useState(parentPost)
 
     const navigate = useNavigate()
+    const { state } = useLocation()
+    const { editedPost } = state || {}
+
+    useEffect(() => {
+        if (editedPost !== undefined) {
+            setPost(editedPost)
+        }
+    }, [])
+
     const handleEditClick = (id, title, category, description, tags) => {
-        navigate(`/edit/${id}`, { state: { postTitle: title, postCategory: category, postDescription: description, postTags: tags } })
+        navigate(`/edit/${id}`, {
+            state: {
+                postTitle: title,
+                postCategory: category,
+                postDescription: description,
+                postTags: tags
+            },
+        })
     }
 
     const handleDeleteClick = (id, title) => {

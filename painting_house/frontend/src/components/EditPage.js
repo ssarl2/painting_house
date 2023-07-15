@@ -10,7 +10,12 @@ const EditPage = () => {
     const { state } = useLocation()
     const navigate = useNavigate()
 
-    const { postTitle, postCategory, postDescription, postTags } = state || {}
+    const {
+        postTitle,
+        postCategory,
+        postDescription,
+        postTags
+    } = state || {}
 
     const [newTitle, setNewTitle] = useState(postTitle)
     const [newCategory, setNewCategory] = useState(postCategory)
@@ -73,10 +78,13 @@ const EditPage = () => {
             .updateData(postId, postObject, POST_DB)
             .then(returnedObject => {
                 console.log('Updated successfully')
+                navigate('/', {
+                    state: {
+                        editedPost: returnedObject
+                    }
+                })
             })
             .catch(error => console.log(error))
-
-        navigate('/')
     }
 
     return (
