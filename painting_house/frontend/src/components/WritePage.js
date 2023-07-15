@@ -53,7 +53,7 @@ const WritePage = () => {
                 <div>
                     category: <input value={newCategory} onChange={(event) => setNewCategory(event.target.value)} />
                 </div>
-                <ImageUploader selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
+                <ImageUploader selectedImages={selectedImages} setSelectedImages={setSelectedImages} hints={'Drag and drop files here, or click to select files'} />
                 <div>
                     description: <input value={newDescription} onChange={(event) => setNewDescription(event.target.value)} />
                 </div>
