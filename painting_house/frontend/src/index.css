@@ -47,7 +47,7 @@
     visibility: hidden;
 }
 
-.editInput {
+.textboxInput {
     display: flex;
     line-break: anywhere;
     align-items: flex-start;

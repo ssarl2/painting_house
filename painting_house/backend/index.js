@@ -6,7 +6,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
 const { User } = require('./models/user')
-const { Post } = require('./models/post')
+const { Post } = require('./models/post');
+const upload = multer({ dest: 'uploads/' })
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -102,24 +103,35 @@ app.put('/api/users/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/users', (request, response, next) => {
-  const body = request.body
+app.post('/api/users', upload.array('image'), (request, response, next) => {
+  const imageBuffers = []
+  for (const file of request.files) {
+    const data = fs.readFileSync(file.path)
+    const image = { name: file.originalname, data: data, contentType: file.mimetype }
+    imageBuffers.push(image)
+  }
+  const userObject = JSON.parse(request.body.userObject)
 
   const missing = []
 
-  const e = body.email
+  const e = userObject.email
   if (e === undefined || e === "") {
     missing.push('email')
   }
 
-  const p = body.password
+  const p = userObject.password
   if (p === undefined || p === "") {
     missing.push('password')
   }
 
-  const n = body.profile.nickname
+  const n = userObject.profile.nickname
   if (n === undefined || n === "") {
     missing.push('nickname')
+  }
+
+  const i = imageBuffers[0]
+  if (i === undefined || i === []) {
+    missing.push('image')
   }
 
   if (missing.length > 0) {
@@ -130,8 +142,8 @@ app.post('/api/users', (request, response, next) => {
 
   User.findOne({
     $or: [
-      { email: body.email },
-      { 'profile.nickname': body.profile.nickname }
+      { email: userObject.email },
+      { 'profile.nickname': userObject.profile.nickname }
     ]
   })
     .then(existingUser => {
@@ -141,13 +153,13 @@ app.post('/api/users', (request, response, next) => {
         })
       }
 
+      const tempProfileObject = userObject.profile
+      tempProfileObject.image.push(imageBuffers[0]) // and now it's handled here
+
       const user = new User({
-        email: body.email,
-        password: body.password,
-        profile: {
-          nickname: body.profile.nickname,
-          image: body.profile.image !== "" ? body.profile.image : 'default'
-        }
+        email: userObject.email,
+        password: userObject.password,
+        profile: tempProfileObject
       })
 
       user.save().then(savedUser => {
@@ -216,9 +228,13 @@ app.put('/api/posts/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-const upload = multer({ dest: 'uploads/' })
 app.post('/api/posts', upload.array('images'), (request, response, next) => {
-  const images = request.files
+  const imageBuffers = []
+  for (const file of request.files) {
+    const data = fs.readFileSync(file.path)
+    const image = { name: file.originalname, data: data, contentType: file.mimetype }
+    imageBuffers.push(image)
+  }
   const postObject = JSON.parse(request.body.postObject)
 
   const missing = []
@@ -228,8 +244,8 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
     missing.push('title')
   }
 
-  const i = images
-  if (i === undefined || i === "") {
+  const i = imageBuffers[0]
+  if (i === undefined || i === []) {
     missing.push('images')
   }
 
@@ -245,13 +261,6 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
         return response.status(400).json({
           error: `The title '${postObject.title}' already exists`
         })
-      }
-
-      const imageBuffers = []
-      for (const file of request.files) {
-        const data = fs.readFileSync(file.path)
-        const image = { name: file.originalname, data: data, contentType: file.mimetype }
-        imageBuffers.push(image)
       }
 
       const post = new Post({

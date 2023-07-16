@@ -90,15 +90,15 @@ const EditPage = () => {
     return (
         <div>
             <form onSubmit={editPost}>
-                <div className='editInput'>
+                <div className='textboxInput'>
                     <label>Title : </label>
                     <textarea value={newTitle} onChange={event => setNewTitle(event.target.value)} ></textarea>
                 </div>
-                <div className='editInput'>
+                <div className='textboxInput'>
                     <label>Category : </label>
                     <textarea value={newCategory} onChange={event => setNewCategory(event.target.value)} />
                 </div>
-                <div className='editInput'>
+                <div className='textboxInput'>
                     <label>Description : </label>
                     <textarea value={newDescAndTags} onChange={event => setNewDescAndTags(event.target.value)} />
                 </div>

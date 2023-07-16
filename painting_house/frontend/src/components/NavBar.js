@@ -12,6 +12,9 @@ const NavBar = () => {
                         <td>
                             <Link to="write">Write</Link>
                         </td>
+                        <td>
+                            <Link to="create_user">create_user</Link>
+                        </td>
                     </tr>
                 </tbody>
             </table>

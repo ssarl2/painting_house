@@ -1,10 +1,14 @@
 const { Mongoose } = require('./mongooseConnection')
+const { ImageSchema } = require('./image')
 
 const profileSchema = new Mongoose.Schema({
-    nickname: String,
-    image: {
+    nickname: {
         type: String,
-        default: 'default'
+        required: true
+    },
+    image: {
+        type: [ImageSchema],
+        required: true
     }
 }, {
     toJSON: {
@@ -15,8 +19,14 @@ const profileSchema = new Mongoose.Schema({
 })
 
 const userSchema = new Mongoose.Schema({
-    email: String,
-    password: String,
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     profile: profileSchema
 })
 
