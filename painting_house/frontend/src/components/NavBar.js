@@ -13,7 +13,7 @@ const NavBar = () => {
                             <Link to="write">Write</Link>
                         </td>
                         <td>
-                            <Link to="create_user">create_user</Link>
+                            <Link to="login">Login</Link>
                         </td>
                     </tr>
                 </tbody>

@@ -169,6 +169,28 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
     })
 })
 
+app.post('/api/login', async (request, response, next) => {
+  const email = request.body.email
+  const password = request.body.password
+
+  try {
+    const existingEmail = await User.findOne({ email: email })
+    if (!existingEmail) {
+      throw new Error('Email not found')
+    }
+
+    const loggedInUser = await User.findOne({ password: password })
+    if (!loggedInUser) {
+      throw new Error('Password does not match')
+    }
+
+    return response.json(loggedInUser)
+
+  } catch (error) {
+    console.log('Login failed in backend', error)
+  }
+})
+
 app.get('/api/posts', (request, response, next) => {
   Post.find({}).then(posts => {
     response.json(posts)

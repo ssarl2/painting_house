@@ -49,17 +49,17 @@ const CreateUserPage = () => {
     return (
         <div>
             <form onSubmit={createUser}>
-                <div className='textboxInput'>
+                <div>
                     <label>Email : </label>
-                    <textarea value={email} onChange={event => setEmail(event.target.value)} ></textarea>
+                    <input value={email} onChange={event => setEmail(event.target.value)} ></input>
                 </div>
-                <div className='textboxInput'>
+                <div>
                     <label>Password : </label>
-                    <textarea value={password} onChange={event => setPassword(event.target.value)} ></textarea>
+                    <input value={password} onChange={event => setPassword(event.target.value)} ></input>
                 </div>
-                <div className='textboxInput'>
+                <div>
                     <label>Nickname : </label>
-                    <textarea value={nickname} onChange={event => setNickname(event.target.value)} ></textarea>
+                    <input value={nickname} onChange={event => setNickname(event.target.value)} ></input>
                 </div>
                 <ImageUploader selectedImages={profileImage} setSelectedImages={setProfileImage} hints={'Click or drag and drop an image to upload a profile image'} option={1} />
                 <button type='submit'>Create</button>

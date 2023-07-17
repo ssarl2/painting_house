@@ -29,4 +29,9 @@ const updateData = (id, newObject, data) => {
     return request.then(response => response.data)
 }
 
-export default { getData, getDataById, createData, deleteData, updateData }
+const login = (loginObject) => {
+    const request = axios.post(`${baseUrl}/login`, loginObject)
+    return request.then(response => response.data)
+}
+
+export default { getData, getDataById, createData, deleteData, updateData, login }
