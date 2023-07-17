@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import { UserContext } from './UserContext'
+
 const NavBar = () => {
+    const { user } = useContext(UserContext)
     return (
         <nav>
             <table border='1'>
@@ -9,9 +13,11 @@ const NavBar = () => {
                         <td>
                             <Link to="/">Home</Link>
                         </td>
-                        <td>
-                            <Link to="write">Write</Link>
-                        </td>
+                        {Object.keys(user).length > 0 && (
+                            <td>
+                                <Link to="write">Write</Link>
+                            </td>
+                        )}
                         <td>
                             <Link to="login">Login</Link>
                         </td>
