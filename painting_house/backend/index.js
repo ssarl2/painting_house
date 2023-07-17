@@ -293,7 +293,7 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
         images: imageBuffers, // and now it's handled here
         comments: postObject.comments,
         tags: postObject.tags !== undefined ? postObject.tags : [],
-        author: "implement login feature later"
+        author: postObject.author
       })
 
       post.save().then(savedPost => {

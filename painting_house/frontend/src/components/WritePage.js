@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { UserContext } from './UserContext'
 import dbConnection from '../services/dbConnection'
 import ImageUploader from './ImageUploader'
 
 const POST_DB = 'posts'
 
 const WritePage = () => {
+    const navigate = useNavigate()
+
     const [newTitle, setNewTitle] = useState('')
     const [newCategory, setNewCategory] = useState('')
     const [selectedImages, setSelectedImages] = useState([])
     const [newDescription, setNewDescription] = useState('')
     const [newTags, setNewTags] = useState([])
-    const [newAuthor, setNewAuthor] = useState('') //TODO fetch author's info automatically
+    const { user } = useContext(UserContext)
 
     const addPost = (event) => {
         event.preventDefault()
@@ -22,7 +26,7 @@ const WritePage = () => {
             images: [], // will be handled in backend
             description: newDescription,
             tags: newTags,
-            author: newAuthor
+            author: user.profile.nickname
         }
 
         const formData = new FormData()
@@ -40,6 +44,7 @@ const WritePage = () => {
                 setSelectedImages([])
                 setNewDescription('')
                 setNewTags([])
+                navigate('/')
             })
             .catch(error => console.log(error))
     }
