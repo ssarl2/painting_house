@@ -19,3 +19,7 @@ Deploy a website with react to a server by using Github actions.
 - Add like feature
 - Show Edit and Delete buttons for the author
 - Delete table border at the end
+- Exclude white-space in tags
+- Bug - tags are not displaying correctly. For example, last tag
+- Bug - after editing, all posts change to the edited post. And the login status is gone
+- Update storing images in DB. Big size images are causing not to display posts
