@@ -52,3 +52,9 @@
     line-break: anywhere;
     align-items: flex-start;
 }
+
+.profileImage {
+    width: 5vw;
+    height: 5vw;
+    margin-left: 1vw;
+}

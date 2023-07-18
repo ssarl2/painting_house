@@ -34,4 +34,9 @@ const login = (loginObject) => {
     return request.then(response => response.data)
 }
 
-export default { getData, getDataById, createData, deleteData, updateData, login }
+const getProfileImage = (profileObject) => {
+    const request = axios.post(`${baseUrl}/users/profile`, profileObject)
+    return request.then(response => response.data)
+}
+
+export default { getData, getDataById, createData, deleteData, updateData, login, getProfileImage }

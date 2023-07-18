@@ -53,6 +53,15 @@ app.get('/api/users', (request, response, next) => {
     .catch(error => next(error))
 })
 
+app.post('/api/users/profile', (request, response, next) => {
+  const nickname = request.body.nickname
+
+  User.find({ 'profile.nickname': nickname }).then(users => {
+    response.json(users[0].profile.image[0])
+  })
+    .catch(error => next(error))
+})
+
 app.get('/api/users/:id', (request, response, next) => {
   User.findById(request.params.id)
     .then(user => {

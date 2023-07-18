@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 import PostDescriptionAndTags from './PostDescriptionAndTags'
+import PostProfile from './PostProfile'
 
 const POST_DB = 'posts'
 
@@ -43,15 +44,6 @@ const Comment = ({ post }) => {
                 <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
                 <button onClick={() => { handleClick(inputValue) }}>Comment</button>
             </div>
-        </div>
-    )
-}
-
-const Profile = () => {
-    return (
-        <div>
-            <div>Profile nickname</div>
-            <div>Profile image</div>
         </div>
     )
 }
@@ -117,7 +109,7 @@ const Post = ({ parentPost, setPosts }) => {
                                                 <tbody>
                                                     <tr>
                                                         <td style={{ width: '85%' }}>
-                                                            <Profile />
+                                                            <PostProfile author={post.author} />
                                                         </td>
                                                         <td style={{ width: '15%' }}>
                                                             {post.like}
