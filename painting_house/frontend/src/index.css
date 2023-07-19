@@ -58,3 +58,10 @@
     height: 5vw;
     margin-left: 1vw;
 }
+
+.likeImage {
+    width: 2.5vw;
+    height: 2.5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}

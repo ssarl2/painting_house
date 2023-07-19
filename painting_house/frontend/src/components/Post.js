@@ -25,7 +25,6 @@ const Comment = ({ post }) => {
                 .updateData(id, updatedPost, POST_DB)
                 .then(() => { return dbConnection.getDataById(id, POST_DB) })
                 .then(currentPost => {
-                    console.log(currentPost)
                     setComments(currentPost.comments)
                     setInputValue('')
                     setUpdateComments(false)
@@ -81,6 +80,14 @@ const Post = ({ parentPost, setPosts }) => {
                 .then(currentPosts => setPosts(currentPosts))
     }
 
+    const handleLikeClick = (id) => {
+        const updatedLike = '' + (parseInt(post.like) + 1)
+        const updatedPost = { ...post, like: updatedLike }
+        dbConnection
+            .updateData(id, updatedPost, POST_DB)
+            .then(returnedPost => { setPost(returnedPost) })
+    }
+
     return (
         <div>
             <table border='1' style={{ width: '100%' }}>
@@ -111,7 +118,8 @@ const Post = ({ parentPost, setPosts }) => {
                                                         <td style={{ width: '85%' }}>
                                                             <PostProfile author={post.author} />
                                                         </td>
-                                                        <td style={{ width: '15%' }}>
+                                                        <td onClick={() => handleLikeClick(post.id)} style={{ width: '15%', cursor: 'default' }}>
+                                                            <img className='likeImage' src={require('../images/like.png')} />
                                                             {post.like}
                                                         </td>
                                                     </tr>

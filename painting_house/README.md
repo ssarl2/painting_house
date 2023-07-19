@@ -15,11 +15,13 @@ Deploy a website with react to a server by using Github actions.
 7. Render deploy
 
 ## TODO
-- Needs to update db to store one image instead of array
-- Add like feature
-- Show Edit and Delete buttons for the author
-- Delete table border at the end
-- Exclude white-space in tags
-- Bug - tags are not displaying correctly. For example, last tag
-- Bug - after editing, all posts change to the edited post. And the login status is gone
-- Update storing images in DB. Big size images are causing not to display posts
+- [ ] Needs to update db to store one image instead of array
+- [x] Add like feature
+  - [ ] Needs undo feature depending on login status. Like can be done only once
+- [ ] Show Edit and Delete buttons for the author
+- [ ] Delete table border at the end
+- [ ] Exclude white-space in tags
+- [ ] Bug - tags are not displaying correctly. For example, last tag
+- [ ] Bug - after editing, all posts change to the edited post. And the login status is gone
+- [ ] Update storing images in DB. Big size images are causing not to display posts
+  - [ ] It affects now the like feature when it's pressed for the big size images
