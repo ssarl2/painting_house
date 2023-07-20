@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const addr = '192.168.1.104'
+const addr = 'localhost'
 const baseUrl = `http://${addr}:3001/api`
 
 const getData = (data) => {

@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+
+import { UserContext } from './UserContext'
 import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 import PostDescriptionAndTags from './PostDescriptionAndTags'
@@ -54,6 +56,7 @@ const Post = ({ parentPost, setPosts }) => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const { editedPost } = state || {}
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
         if (editedPost !== undefined) {
@@ -131,12 +134,13 @@ const Post = ({ parentPost, setPosts }) => {
                             </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td colSpan='2'>
-                            <button onClick={() => { handleDeleteClick(post.id, post.title) }} style={{ float: 'right' }}>Delete</button>
-                            <button onClick={() => { handleEditClick(post.id, post.title, post.category, post.description, post.tags) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
-                        </td>
-                    </tr>
+                    {user?.profile?.nickname === post.author &&
+                        <tr>
+                            <td colSpan='2'>
+                                <button onClick={() => { handleDeleteClick(post.id, post.title) }} style={{ float: 'right' }}>Delete</button>
+                                <button onClick={() => { handleEditClick(post.id, post.title, post.category, post.description, post.tags) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
+                            </td>
+                        </tr>}
                     <tr>
                         <td colSpan='2'>
                             <Comment post={post} />
