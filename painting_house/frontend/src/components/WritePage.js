@@ -19,13 +19,16 @@ const WritePage = () => {
 
     const addPost = (event) => {
         event.preventDefault()
+        
+        const tagsArray = newTags.split(/[,\s]+/).map(item => item.trim())
+        const filteredTags = tagsArray.filter(tag => tag !== '')
 
         const postObject = {
             title: newTitle,
             category: newCategory,
             images: [], // will be handled in backend
             description: newDescription,
-            tags: newTags,
+            tags: filteredTags,
             author: user.profile.nickname
         }
 
@@ -63,7 +66,7 @@ const WritePage = () => {
                     description: <input value={newDescription} onChange={(event) => setNewDescription(event.target.value)} />
                 </div>
                 <div>
-                    tags: <input value={newTags.join(',')} onChange={(event) => setNewTags(event.target.value.split(','))} />
+                    tags: <input value={newTags} onChange={(event) => setNewTags(event.target.value)} />
                 </div>
                 <button type="submit">Post</button>
             </form>
