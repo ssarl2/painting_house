@@ -25,7 +25,8 @@ const CreateUserPage = () => {
         const userObject = {
             email: email,
             password: password,
-            profile: profileObject
+            profile: profileObject,
+            postHistory: []
         }
 
         const formData = new FormData()

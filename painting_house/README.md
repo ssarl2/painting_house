@@ -17,7 +17,7 @@ Deploy a website with react to a server by using Github actions.
 ## TODO
 - [ ] Need to update db to store one image instead of array for profile image
 - [x] Add like feature
-  - [ ] Needs undo feature depending on login status. Like can be done only once
+  - [x] Needs undo feature depending on login status. Like can be done only once
 - [x] Show Edit and Delete buttons for the author
 - [ ] Delete table border at the end
 - [x] Exclude white-space in tags

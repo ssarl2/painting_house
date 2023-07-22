@@ -18,6 +18,15 @@ const profileSchema = new Mongoose.Schema({
     }
 })
 
+/**
+ * postHistorySchema template
+ */
+// const postHistorySchema = new Mongoose.Schema({
+//     postId: String,
+//     liked: Boolean,
+//     comments: [String]
+// })
+
 const userSchema = new Mongoose.Schema({
     email: {
         type: String,
@@ -27,7 +36,9 @@ const userSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
-    profile: profileSchema
+    profile: profileSchema,
+    postHistory: [],
+    // postHistory: [postHistorySchema] leaving as a template
 })
 
 userSchema.set('toJSON', {

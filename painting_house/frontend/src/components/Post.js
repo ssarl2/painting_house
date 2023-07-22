@@ -8,6 +8,7 @@ import PostDescriptionAndTags from './PostDescriptionAndTags'
 import PostProfile from './PostProfile'
 
 const POST_DB = 'posts'
+const USER_DB = 'users'
 
 const Comment = ({ post }) => {
     const id = post.id
@@ -56,7 +57,7 @@ const Post = ({ parentPost, setPosts }) => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const { editedPost } = state || {}
-    const { user } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
 
     useEffect(() => {
         if (editedPost !== undefined) {
@@ -83,9 +84,47 @@ const Post = ({ parentPost, setPosts }) => {
                 .then(currentPosts => setPosts(currentPosts))
     }
 
-    const handleLikeClick = (id) => {
-        const updatedLike = '' + (parseInt(post.like) + 1)
-        const updatedPost = { ...post, like: updatedLike }
+    const handleLikeClick = async (id) => {
+        const loggedIn = Object.keys(user).length > 0
+        if (!loggedIn) {
+            return
+        }
+
+        const foundPostHistory = await user.postHistory.find(post => post['postId'] === id)
+
+        let updatedPost
+        if (foundPostHistory) {
+            const updatedPostHistory = { ...foundPostHistory, liked: !foundPostHistory.liked }
+            const updatedUser = { ...user, postHistory: updatedPostHistory }
+            await dbConnection
+                .updateData(user.id, updatedUser, USER_DB)
+                .then(returnedUser => setUser(returnedUser))
+
+            let updatedLike
+            if (updatedPostHistory.liked) {
+                // not liked -> liked
+                updatedLike = '' + (parseInt(post.like) + 1)
+            } else {
+                // liked -> not liked
+                updatedLike = '' + (parseInt(post.like) - 1)
+            }
+            updatedPost = { ...post, like: updatedLike }
+        } else {
+            const newPostHistory = {
+                postId: id,
+                liked: true,
+                comments: []
+            }
+
+            const updatedUser = { ...user, postHistory: [...user.postHistory, newPostHistory] }
+            await dbConnection
+                .updateData(user.id, updatedUser, USER_DB)
+                .then(returnedUser => setUser(returnedUser))
+
+            const updatedLike = '' + (parseInt(post.like) + 1)
+            updatedPost = { ...post, like: updatedLike }
+        }
+
         dbConnection
             .updateData(id, updatedPost, POST_DB)
             .then(returnedPost => { setPost(returnedPost) })

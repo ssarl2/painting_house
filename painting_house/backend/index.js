@@ -96,7 +96,8 @@ app.put('/api/users/:id', (request, response, next) => {
           profile: {
             nickname: body.profile.nickname === "" || body.profile.nickname === undefined ? nuu.profile.nickname : body.profile.nickname,
             image: (body.profile.image === "" || body.profile.image === undefined) ? nuu.profile.image : body.profile.image
-          }
+          },
+          postHistory: body.postHistory === [] ? nuu.postHistory : body.postHistory
         }
 
         User.findByIdAndUpdate(request.params.id, user, { new: true })
@@ -168,7 +169,8 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
       const user = new User({
         email: userObject.email,
         password: userObject.password,
-        profile: tempProfileObject
+        profile: tempProfileObject,
+        postHistory: [] // create with an empty history. Data will be filled with frontend data, but there is a template for this. Search 'postHistorySchema template'
       })
 
       user.save().then(savedUser => {
