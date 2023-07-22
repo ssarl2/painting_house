@@ -18,9 +18,11 @@ const NavBar = () => {
                                 <Link to="write">Write</Link>
                             </td>
                         )}
-                        <td>
-                            <Link to="login">Login</Link>
-                        </td>
+                        {Object.keys(user).length === 0 && (
+                            <td>
+                                <Link to="login">Login</Link>
+                            </td>
+                        )}
                     </tr>
                 </tbody>
             </table>

@@ -15,12 +15,12 @@ Deploy a website with react to a server by using Github actions.
 7. Render deploy
 
 ## TODO
-- [ ] Needs to update db to store one image instead of array
+- [ ] Need to update db to store one image instead of array for profile image
 - [x] Add like feature
   - [ ] Needs undo feature depending on login status. Like can be done only once
 - [x] Show Edit and Delete buttons for the author
 - [ ] Delete table border at the end
-- [ ] Exclude white-space in tags
+- [x] Exclude white-space in tags
 - [ ] Bug - tags are not displaying correctly. For example, last tag
   - [x] Store tags without white spaces
   - [ ] Looks like it is related to maxLength of contents
@@ -28,3 +28,4 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Bug - when page is refreshed, login info is gone. It should keep
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [ ] It affects now the like feature when it's pressed for the big size images
+- [x] When logged in, do not show login button
