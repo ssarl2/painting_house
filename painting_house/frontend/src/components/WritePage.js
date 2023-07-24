@@ -19,9 +19,14 @@ const WritePage = () => {
 
     const addPost = (event) => {
         event.preventDefault()
-        
-        const tagsArray = newTags.split(/[,\s]+/).map(item => item.trim())
-        const filteredTags = tagsArray.filter(tag => tag !== '')
+
+        let filteredTags
+        if (newTags === '') {
+            const tagsArray = newTags.split(/[,\s]+/).map(item => item.trim())
+            filteredTags = tagsArray.filter(tag => tag !== '')
+        } else {
+            filteredTags = newTags
+        }
 
         const postObject = {
             title: newTitle,
