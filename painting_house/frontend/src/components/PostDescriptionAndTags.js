@@ -44,7 +44,7 @@ const PostDescriptionAndTags = ({ postDescription, postTags }) => {
 
     const trimText = () => {
         const expendingButtonLength = 10
-        if (isExpanded) {
+        if (isExpanded || !visibleMore) {
             return descAndTags
         } else {
             return descAndTags.slice(0, maxLength - expendingButtonLength)

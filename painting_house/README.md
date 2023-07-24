@@ -21,9 +21,10 @@ Deploy a website with react to a server by using Github actions.
 - [x] Show Edit and Delete buttons for the author
 - [ ] Delete table border at the end
 - [x] Exclude white-space in tags
-- [ ] Bug - tags are not displaying correctly. For example, last tag
+- [x] Bug - tags are not displaying correctly. For example, last tag
   - [x] Store tags without white spaces
-  - [ ] Looks like it is related to maxLength of contents
+  - [x] Looks like it is related to maxLength of contents
+    - It was a trimming text problem
 - [ ] Bug - after editing, all posts change to the edited post. And the login status is gone
 - [ ] Bug - when page is refreshed, login info is gone. It should keep
 - [ ] Update storing images in DB. Big size images are causing not to display posts
