@@ -19,7 +19,7 @@ const CreateUserPage = () => {
 
         const profileObject = {
             nickname: nickname,
-            image: [] // will be handled in backend
+            image: {} // will be handled in backend
         }
 
         const userObject = {

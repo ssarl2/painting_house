@@ -15,7 +15,7 @@ Deploy a website with react to a server by using Github actions.
 7. Render deploy
 
 ## TODO
-- [ ] Need to update db to store one image instead of array for profile image
+- [x] Need to update db to store one image instead of array for profile image
 - [x] Add like feature
   - [x] Needs undo feature depending on login status. Like can be done only once
 - [x] Show Edit and Delete buttons for the author
@@ -30,3 +30,4 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [ ] It affects now the like feature when it's pressed for the big size images
 - [x] When logged in, do not show login button
+- [ ] When users of posts were deleted, it should still show the posts

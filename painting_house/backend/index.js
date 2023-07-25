@@ -57,7 +57,7 @@ app.post('/api/users/profile', (request, response, next) => {
   const nickname = request.body.nickname
 
   User.find({ 'profile.nickname': nickname }).then(users => {
-    response.json(users[0].profile.image[0])
+    response.json(users[0].profile.image)
   })
     .catch(error => next(error))
 })
@@ -114,12 +114,9 @@ app.put('/api/users/:id', (request, response, next) => {
 })
 
 app.post('/api/users', upload.array('image'), (request, response, next) => {
-  const imageBuffers = []
-  for (const file of request.files) {
-    const data = fs.readFileSync(file.path)
-    const image = { name: file.originalname, data: data, contentType: file.mimetype }
-    imageBuffers.push(image)
-  }
+  const file = request.files[0]
+  const data = fs.readFileSync(file.path)
+  const image = { name: file.originalname, data: data, contentType: file.mimetype }
   const userObject = JSON.parse(request.body.userObject)
 
   const missing = []
@@ -139,7 +136,7 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
     missing.push('nickname')
   }
 
-  const i = imageBuffers[0]
+  const i = image
   if (i === undefined || i === []) {
     missing.push('image')
   }
@@ -164,7 +161,7 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
       }
 
       const tempProfileObject = userObject.profile
-      tempProfileObject.image.push(imageBuffers[0]) // and now it's handled here
+      tempProfileObject.image = image // and now it's handled here
 
       const user = new User({
         email: userObject.email,
