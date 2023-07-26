@@ -60,8 +60,12 @@ const Post = ({ parentPost, setPosts }) => {
     const { user, setUser } = useContext(UserContext)
 
     useEffect(() => {
+
+        // In order to update the edited post directly after it
+        // Otherwise, it does not update for the long context sometimes
         if (editedPost !== undefined) {
-            setPost(editedPost)
+            if (editedPost.title === post.title)
+                setPost(editedPost)
         }
     }, [])
 

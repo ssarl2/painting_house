@@ -25,7 +25,7 @@ Deploy a website with react to a server by using Github actions.
   - [x] Store tags without white spaces
   - [x] Looks like it is related to maxLength of contents
     - It was a trimming text problem
-- [ ] Bug - after editing, all posts change to the edited post. And the login status is gone
+- [x] Bug - after editing, all posts change to the edited post. And the login status is gone
 - [ ] Bug - when page is refreshed, login info is gone. It should keep
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [ ] It affects now the like feature when it's pressed for the big size images
