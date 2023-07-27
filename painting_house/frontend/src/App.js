@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { UserContext } from './components/UserContext'
@@ -11,6 +11,19 @@ import CreateUserPage from './components/CreateUserPage'
 
 const App = () => {
     const [user, setUser] = useState({})
+
+    // Load user state from session storage when the app initializes
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem('user'))
+        if (storedUser) {
+            setUser(storedUser)
+        }
+    }, [])
+
+    // Save user state to session storage whenever it changes
+    useEffect(() => {
+        sessionStorage.setItem('user', JSON.stringify(user))
+    }, [user])
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
