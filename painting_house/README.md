@@ -32,3 +32,4 @@ Deploy a website with react to a server by using Github actions.
 - [x] When logged in, do not show login button
 - [ ] When users of posts were deleted, it should still show the posts
 - [ ] Only users can leave comments
+- [x] Encrypt stored password

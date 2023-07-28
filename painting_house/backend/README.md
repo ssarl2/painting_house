@@ -17,4 +17,5 @@ npm install cors
 npm install mongoose
 npm install dotenv
 npm install multer
+npm install bcrypt
 ```

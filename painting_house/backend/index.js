@@ -4,6 +4,7 @@ const fs = require('fs');
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const bcrypt = require('bcrypt')
 const app = express()
 const { User } = require('./models/user')
 const { Post } = require('./models/post');
@@ -113,7 +114,7 @@ app.put('/api/users/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/users', upload.array('image'), (request, response, next) => {
+app.post('/api/users', upload.array('image'), async (request, response, next) => {
   const file = request.files[0]
   const data = fs.readFileSync(file.path)
   const image = { name: file.originalname, data: data, contentType: file.mimetype }
@@ -147,7 +148,7 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
     })
   }
 
-  User.findOne({
+  await User.findOne({
     $or: [
       { email: userObject.email },
       { 'profile.nickname': userObject.profile.nickname }
@@ -159,40 +160,44 @@ app.post('/api/users', upload.array('image'), (request, response, next) => {
           error: 'Email or nickname already exists'
         })
       }
-
-      const tempProfileObject = userObject.profile
-      tempProfileObject.image = image // and now it's handled here
-
-      const user = new User({
-        email: userObject.email,
-        password: userObject.password,
-        profile: tempProfileObject,
-        postHistory: [] // create with an empty history. Data will be filled with frontend data, but there is a template for this. Search 'postHistorySchema template'
-      })
-
-      user.save().then(savedUser => {
-        response.json(savedUser)
-      })
-        .catch(error => next(error))
     })
+
+  const plainPassword = userObject.password
+  const saltRounds = 10
+  const hashedPassword = await bcrypt.hash(plainPassword, saltRounds)
+
+  const tempProfileObject = userObject.profile
+  tempProfileObject.image = image // and now it's handled here
+
+  const user = new User({
+    email: userObject.email,
+    password: hashedPassword,
+    profile: tempProfileObject,
+    postHistory: [] // create with an empty history. Data will be filled with frontend data, but there is a template for this. Search 'postHistorySchema template'
+  })
+
+  user.save().then(savedUser => {
+    response.json(savedUser)
+  })
+    .catch(error => next(error))
 })
 
 app.post('/api/login', async (request, response, next) => {
   const email = request.body.email
-  const password = request.body.password
+  const enteredPassword = request.body.password
 
   try {
-    const existingEmail = await User.findOne({ email: email })
-    if (!existingEmail) {
+    const user = await User.findOne({ email: email })
+    if (!user) {
       throw new Error('Email not found')
     }
 
-    const loggedInUser = await User.findOne({ password: password })
-    if (!loggedInUser) {
+    const isMatch = await bcrypt.compare(enteredPassword, user.password)
+    if (!isMatch) {
       throw new Error('Password does not match')
     }
 
-    return response.json(loggedInUser)
+    return response.json(user)
 
   } catch (error) {
     console.log('Login failed in backend', error)
