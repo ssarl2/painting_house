@@ -31,6 +31,7 @@ Deploy a website with react to a server by using Github actions.
   - [ ] It affects now the like feature when it's pressed for the big size images
 - [x] When logged in, do not show login button
 - [ ] When users of posts were deleted, it should still show the posts
-- [ ] Only users can leave comments
+- [x] Only users can leave comments
+  - [ ] Match proper users to comments
 - [x] Encrypt stored password
 - [ ] Tags are not parsed and stored correctly when it's posted

@@ -6,49 +6,10 @@ import dbConnection from '../services/dbConnection'
 import ImageHandler from './ImageHandler'
 import PostDescriptionAndTags from './PostDescriptionAndTags'
 import PostProfile from './PostProfile'
+import PostComment from './PostComment'
 
 const POST_DB = 'posts'
 const USER_DB = 'users'
-
-const Comment = ({ post }) => {
-    const id = post.id
-    const [inputValue, setInputValue] = useState('')
-    const [comments, setComments] = useState(post.comments)
-    const [updateComments, setUpdateComments] = useState(false)
-
-    const handleClick = (comment) => {
-        setComments([...comments, comment])
-        setUpdateComments(true)
-    }
-
-    useEffect(() => {
-        if (updateComments) {
-            const updatedPost = { ...post, comments: comments }
-            dbConnection
-                .updateData(id, updatedPost, POST_DB)
-                .then(() => { return dbConnection.getDataById(id, POST_DB) })
-                .then(currentPost => {
-                    setComments(currentPost.comments)
-                    setInputValue('')
-                    setUpdateComments(false)
-                })
-        }
-    }, [updateComments])
-
-    return (
-        <div>
-            {
-                comments.map(comment => <div key={comment}>
-                    {comment}
-                </div>)
-            }
-            <div style={{ display: 'flex' }}>
-                <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                <button onClick={() => { handleClick(inputValue) }}>Comment</button>
-            </div>
-        </div>
-    )
-}
 
 const Post = ({ parentPost, setPosts }) => {
 
@@ -186,7 +147,7 @@ const Post = ({ parentPost, setPosts }) => {
                         </tr>}
                     <tr>
                         <td colSpan='2'>
-                            <Comment post={post} />
+                            <PostComment post={post} setPost={setPost} />
                         </td>
 
                     </tr>
