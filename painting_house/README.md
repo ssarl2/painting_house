@@ -33,3 +33,4 @@ Deploy a website with react to a server by using Github actions.
 - [ ] When users of posts were deleted, it should still show the posts
 - [ ] Only users can leave comments
 - [x] Encrypt stored password
+- [ ] Tags are not parsed and stored correctly when it's posted
