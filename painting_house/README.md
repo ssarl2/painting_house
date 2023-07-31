@@ -32,7 +32,8 @@ Deploy a website with react to a server by using Github actions.
 - [x] When logged in, do not show login button
 - [ ] When users of posts were deleted, it should still show the posts
 - [x] Only users can leave comments
-  - [ ] Match proper users to comments
-  - [ ] Show user's profile image
+  - [x] Match proper users to comments
+  - [x] Show user's profile image
+  - [ ] Need a feature of deleting comments
 - [x] Encrypt stored password
 - [ ] Tags are not parsed and stored correctly when it's posted

@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const bcrypt = require('bcrypt')
 const app = express()
 const { User } = require('./models/user')
-const { Post } = require('./models/post');
+const { Post } = require('./models/post')
 const upload = multer({ dest: 'uploads/' })
 
 const unknownEndpoint = (request, response) => {
@@ -187,7 +187,9 @@ app.post('/api/login', async (request, response, next) => {
   const enteredPassword = request.body.password
 
   try {
+
     const user = await User.findOne({ email: email })
+
     if (!user) {
       throw new Error('Email not found')
     }

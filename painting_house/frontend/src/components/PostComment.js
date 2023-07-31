@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import { Buffer } from 'buffer'
 
 import { UserContext } from './UserContext'
 import dbConnection from '../services/dbConnection'
@@ -9,82 +10,111 @@ const USER_DB = 'users'
 const PostComment = ({ post, setPost }) => {
     const postId = post.id
     const [inputValue, setInputValue] = useState('')
-    const [comments, setComments] = useState(post.comments)
-    const [updateComments, setUpdateComments] = useState(false)
+    const [commentsWithProfile, setCommentsWithProfile] = useState([])
     const { user, setUser } = useContext(UserContext)
 
+    useEffect(() => {
+        const imagePromises = post.comments.map(async comment => {
+            if (comment.image) {
+                return null
+            }
+
+            const commentorObject = {
+                nickname: comment.commentor
+            }
+
+            const returnedImageObject = await dbConnection.getProfileImage(commentorObject)
+            const tempImage = {
+                src: `data:${returnedImageObject.contentType};base64,${Buffer.from(returnedImageObject.data).toString('base64')}`,
+                alt: returnedImageObject.name
+            }
+
+            return { ...comment, image: tempImage }
+        })
+
+        Promise.all(imagePromises).then(commentsWithImages => {
+            const filteredCommentsWithImages = commentsWithImages.filter(comment => comment !== null)
+            setCommentsWithProfile(filteredCommentsWithImages)
+        })
+    }, [post])
+
+
     const handleClick = async (comment, id) => {
-        setComments([...comments, comment])
-        setUpdateComments(true)
+        const newComment = {
+            commentor: user.profile.nickname,
+            comment: comment
+        }
 
         const foundPostHistory = await user.postHistory.find(post => post['postId'] === id)
 
         let updatedUser
         if (foundPostHistory) {
-            const updatedPostHistory = { ...foundPostHistory, comments: [...foundPostHistory.comments, comment] }
+            const updatedPostHistory = { ...foundPostHistory, comments: [...foundPostHistory.comments, newComment] }
             updatedUser = { ...user, postHistory: updatedPostHistory }
         } else {
             const newPostHistory = {
                 postId: id,
                 liked: false,
-                comments: [comment]
+                comments: [newComment]
             }
             updatedUser = { ...user, postHistory: [...user.postHistory, newPostHistory] }
         }
-        const updatedPost = { ...post, comments: [...post.comments, comment] }
+        const updatedPost = { ...post, comments: [...post.comments, newComment] }
 
         await dbConnection
             .updateData(user.id, updatedUser, USER_DB)
             .then(returnedUser => setUser(returnedUser))
 
-        dbConnection
+        await dbConnection
             .updateData(id, updatedPost, POST_DB)
             .then(returnedPost => { setPost(returnedPost) })
 
-        setComments([...comments, comment])
-        setUpdateComments(true)
+        setInputValue('')
     }
-
-    useEffect(() => {
-        if (updateComments) {
-            const updatedPost = { ...post, comments: comments }
-            dbConnection
-                .updateData(postId, updatedPost, POST_DB)
-                .then(() => { return dbConnection.getDataById(postId, POST_DB) })
-                .then(currentPost => {
-                    setComments(currentPost.comments)
-                    setInputValue('')
-                    setUpdateComments(false)
-                })
-        }
-    }, [updateComments])
 
     return (
         <div>
+            <table>
+                <tbody>
+                    {
+                        commentsWithProfile.map(comment =>
+                            comment.image ?
+                                <tr key={comment.id} >
+                                    <td style={{ verticalAlign: 'top' }}>
+                                        <img className='profileImage' src={comment.image.src} alt={comment.image.alt} />
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        {comment.commentor}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style={{ lineBreak: 'anywhere' }}>
+                                                        {comment.comment}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                : <tr />
+                        )
+                    }
+                </tbody>
+            </table>
             {
-                comments.map(comment => <table key={comment}>
-                    <tbody>
-                        <tr>
-                            <td>
-                                [User image]
-                            </td>
-                            <td>
-                                commentor :
-                            </td>
-                            <td>
-                                {comment}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>)
+                Object.keys(user).length > 0 && (
+                    <div style={{ display: 'flex' }}>
+                        <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
+                        <button onClick={() => { handleClick(inputValue, postId) }}>Comment</button>
+                    </div>
+                )
             }
-            {Object.keys(user).length > 0 && (
-                <div style={{ display: 'flex' }}>
-                    <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                    <button onClick={() => { handleClick(inputValue, postId) }}>Comment</button>
-                </div>
-            )}
-        </div>
+        </div >
     )
 }
 

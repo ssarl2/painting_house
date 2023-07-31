@@ -1,6 +1,6 @@
 const { Mongoose } = require('./mongooseConnection')
 
-const ImageSchema = new Mongoose.Schema({
+const imageSchema = new Mongoose.Schema({
     name: String,
     data: Buffer,
     contentType: String
@@ -12,4 +12,4 @@ const ImageSchema = new Mongoose.Schema({
     }
 })
 
-module.exports = { ImageSchema }
+module.exports = { imageSchema }

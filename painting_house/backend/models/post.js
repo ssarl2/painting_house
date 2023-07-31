@@ -1,5 +1,23 @@
 const { Mongoose } = require('./mongooseConnection')
-const { ImageSchema } = require('./image')
+const { imageSchema } = require('./image')
+
+const commentSchema = new Mongoose.Schema({
+    commentor: {
+        type: String,
+        required: true
+    },
+    comment: {
+        type: String,
+        required: true
+    }
+}, {
+    toJSON: {
+        transform: (document, returnedObject) => {
+            returnedObject.id = returnedObject._id.toString()
+            delete returnedObject._id
+        },
+    }
+})
 
 const postSchema = new Mongoose.Schema({
     title: {
@@ -10,10 +28,10 @@ const postSchema = new Mongoose.Schema({
     description: String,
     like: String,
     images: {
-        type: [ImageSchema],
+        type: [imageSchema],
         required: true
     },
-    comments: [String],
+    comments: [commentSchema],
     tags: [String],
     author: {
         type: String,

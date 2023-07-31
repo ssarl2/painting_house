@@ -1,5 +1,5 @@
 const { Mongoose } = require('./mongooseConnection')
-const { ImageSchema } = require('./image')
+const { imageSchema } = require('./image')
 
 const profileSchema = new Mongoose.Schema({
     nickname: {
@@ -7,13 +7,13 @@ const profileSchema = new Mongoose.Schema({
         required: true
     },
     image: {
-        type: ImageSchema,
+        type: imageSchema,
         required: true
     }
 }, {
     toJSON: {
-        transform: function (document, returnedObject) {
-            delete returnedObject._id; // Exclude _id field from the transformed object
+        transform: (document, returnedObject) => {
+            delete returnedObject._id // Exclude _id field from the transformed object
         },
     }
 })
