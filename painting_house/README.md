@@ -15,11 +15,22 @@ Deploy a website with react to a server by using Github actions.
 7. Render deploy
 
 ## TODO
+  - [x] Needs undo feature depending on login status. Like can be done only once
+- [ ] Delete table border at the end
+- [ ] Update storing images in DB. Big size images are causing not to display posts
+  - [ ] It affects now the like feature when it's pressed for the big size images
+- [ ] When users of posts were deleted, it should still show the posts
+- [x] Only users can leave comments
+  - [x] Match proper users to comments
+  - [x] Show user's profile image
+  - [ ] Need a feature of deleting comments
+- [ ] Tags are not parsed and stored correctly when it's posted
+
+### Done
+- [x] Encrypt stored password
 - [x] Need to update db to store one image instead of array for profile image
 - [x] Add like feature
-  - [x] Needs undo feature depending on login status. Like can be done only once
 - [x] Show Edit and Delete buttons for the author
-- [ ] Delete table border at the end
 - [x] Exclude white-space in tags
 - [x] Bug - tags are not displaying correctly. For example, last tag
   - [x] Store tags without white spaces
@@ -27,13 +38,4 @@ Deploy a website with react to a server by using Github actions.
     - It was a trimming text problem
 - [x] Bug - after editing, all posts change to the edited post. And the login status is gone
 - [x] Feature - when page is refreshed, login info is gone. It should keep
-- [ ] Update storing images in DB. Big size images are causing not to display posts
-  - [ ] It affects now the like feature when it's pressed for the big size images
 - [x] When logged in, do not show login button
-- [ ] When users of posts were deleted, it should still show the posts
-- [x] Only users can leave comments
-  - [x] Match proper users to comments
-  - [x] Show user's profile image
-  - [ ] Need a feature of deleting comments
-- [x] Encrypt stored password
-- [ ] Tags are not parsed and stored correctly when it's posted
