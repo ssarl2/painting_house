@@ -117,3 +117,6 @@ Content-Type: application/json
     ],
     "author":"users.profile.nickname"
 }
+
+###
+GET http://localhost:3001/fileinfo/se.png
