@@ -24,12 +24,17 @@ const mongoURI = 'something' // Replace this with your MongoDB URI
 const conn = mongoose.createConnection(mongoURI);
 
 // Init gfs
-let gfs;
+let gfs, gridfsBucket;
+const bucketName = 'myBuc'
 
 conn.once('open', () => {
+  gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: bucketName
+  })
+
   // Init stream
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads');
+  gfs.collection(bucketName);
 });
 
 // Create storage engine
@@ -44,7 +49,7 @@ const storage = new GridFsStorage({
         const filename = buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
-          bucketName: 'uploads'
+          bucketName: bucketName
         };
         resolve(fileInfo);
       });
@@ -91,8 +96,13 @@ app.get('/files', async (req, res) => {
   console.log('files')
   const files = await gfs.files.find().toArray()
   // const file = await gfs.files.find({filename:'human.png'})
-  console.log(files[0])
-  return res.json(files)
+  const file = files.pop()
+  console.log(file)
+  const readStream = gridfsBucket.openDownloadStream(file._id)
+  readStream.pipe(res)
+  // res.json(file)
+
+  // return res.json(files)
   // .toArray((err, files) => {
   // // const file = gfs.files.find().toArray((files) => {
   //   console.log(files)

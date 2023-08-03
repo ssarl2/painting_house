@@ -10,12 +10,11 @@ const GetImage = () => {
   };
 
   const handleGetImage = () => {
-    const here = 'http://localhost:3001/files'
-    console.log(`retrieving image : ${here}`)
-    axios.get(here)
+    const url = `http://localhost:3001/files`; // Adjust the URL to match your backend API endpoint
+    console.log(`retrieving image: ${url}`);
+    axios.get(url)
       .then((response) => {
-        console.log(response.data)
-        setImageUrl(response.data);
+        setImageUrl('dd');
       })
       .catch((error) => {
         console.log('Error getting image:', error);
@@ -31,7 +30,8 @@ const GetImage = () => {
       {imageUrl ? (
         <div>
           <h2>Retrieved Image:</h2>
-          <img src={imageUrl} alt="Retrieved" style={{ maxWidth: '100%' }} />
+
+          <img src='http://localhost:3001/files' alt="Retrieved" style={{ width: '100%' }} />
         </div>
       ) : (
         <p>No image retrieved.</p>
