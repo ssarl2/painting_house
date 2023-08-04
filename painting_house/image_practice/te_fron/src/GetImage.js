@@ -10,9 +10,14 @@ const GetImage = () => {
   };
 
   const handleGetImage = () => {
-    const url = `http://localhost:3001/files`; // Adjust the URL to match your backend API endpoint
+    console.log(imageName)
+    if(!imageName){
+      console.log('Image name is empty!')
+      return
+    }
+    const url = `http://localhost:3001/files/${imageName}`
     console.log(`retrieving image: ${url}`);
-    axios.get(url)
+    axios.delete(url)
       .then((response) => {
         setImageUrl('dd');
       })
