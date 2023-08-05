@@ -19,6 +19,8 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Delete table border at the end
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [ ] It affects now the like feature when it's pressed for the big size images
+  - [x] Use GridFS to store large images over 16MB
+  - [ ] Restruct to store images
 - [ ] When users of posts were deleted, it should still show the posts
 - [x] Only users can leave comments
   - [x] Match proper users to comments
