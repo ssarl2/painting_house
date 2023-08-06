@@ -1,28 +1,47 @@
-import { Buffer } from 'buffer'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import Lightbox from 'react-spring-lightbox'
+import dbConnection from '../services/dbConnection'
 
+const POST_DB = 'posts'
 
-const refineImages = (parentImages) => {
+const refineImages = async (postId, parentImages) => {
     const refinedImages = []
 
-    parentImages.map(pi => {
-        refinedImages.push({
-            src: `data:${pi.contentType};base64,${Buffer.from(pi.data).toString('base64')}`,
-            loading: 'lazy',
-            alt: pi.name
-        })
-    })
+    await Promise.all(
+        parentImages.map(async image => {
+            try {
+                await dbConnection.getImageById(postId, image.idInBucket, POST_DB)
 
+                const newImage = {
+                    src: `http://127.0.0.1:3001/api/posts/${postId}/${image.idInBucket}`,
+                    loading: 'lazy',
+                    alt: image.name
+                }
+                refinedImages.push(newImage)
+
+            } catch (error) {
+                console.error('Error fetching image:', error)
+            }
+        })
+    )
     return refinedImages
 }
 
-const ImageHandler = ({ parentImages }) => {
+const ImageHandler = ({ postId, parentImages }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [popup, setPopup] = useState(false)
-    const lightboxImages = refineImages(parentImages)
+    const [lightboxImages, setLightboxImages] = useState([])
     const images = parentImages
+
+    useEffect(() => {
+        const getImages = async () => {
+            const refinedImages = await refineImages(postId, parentImages)
+            setLightboxImages(refinedImages)
+        }
+
+        getImages()
+    }, [postId, parentImages])
 
     const handleSwipe = useSwipeable({
         onSwipedLeft: () => {
@@ -59,14 +78,14 @@ const ImageHandler = ({ parentImages }) => {
                         onClose={() => setPopup(false)}
                     />
                 )}
-                <img
-                    className='postImage'
-                    src={`data:${images[currentIndex].contentType};base64,${Buffer.from(
-                        images[currentIndex].data
-                    ).toString('base64')}`}
-                    alt={images[currentIndex].name}
-                    onClick={() => setPopup(true)}
-                />
+                {lightboxImages.length > 0 && (
+                    <img
+                        className='postImage'
+                        src={`${lightboxImages[currentIndex].src}`}
+                        alt={lightboxImages[currentIndex].name}
+                        onClick={() => setPopup(true)}
+                    />
+                )}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {images.map((_, index) => (

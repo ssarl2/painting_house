@@ -27,7 +27,7 @@ const postSchema = new Mongoose.Schema({
     category: String,
     description: String,
     like: String,
-    images: {
+    imageInfos: {
         type: [imageSchema],
         required: true
     },

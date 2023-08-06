@@ -6,7 +6,7 @@ const profileSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    imageInfo: {
         type: imageSchema,
         required: true
     }

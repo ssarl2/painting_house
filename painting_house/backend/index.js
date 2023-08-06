@@ -1,5 +1,4 @@
 require('dotenv').config()
-const multer = require('multer')
 const fs = require('fs');
 const express = require('express')
 const cors = require('cors')
@@ -8,7 +7,8 @@ const bcrypt = require('bcrypt')
 const app = express()
 const { User } = require('./models/user')
 const { Post } = require('./models/post')
-const upload = multer({ dest: 'uploads/' })
+const { Upload, GridfsBucket } = require('./models/gridfsBucket')
+const { ObjectId } = require('mongodb')
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -114,7 +114,7 @@ app.put('/api/users/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/users', upload.array('image'), async (request, response, next) => {
+app.post('/api/users', Upload.array('image'), async (request, response, next) => {
   const file = request.files[0]
   const data = fs.readFileSync(file.path)
   const image = { name: file.originalname, data: data, contentType: file.mimetype }
@@ -225,6 +225,20 @@ app.get('/api/posts/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
+app.get('/api/posts/:id/:imageId', async (request, response, next) => {
+  const post = await Post.findById(request.params.id)
+
+  if (!post) {
+    response.status(404).end()
+  }
+
+  const imageId = request.params.imageId
+  const objectId = new ObjectId(imageId)
+  const gridfsBucket = await GridfsBucket()
+  const readStream = gridfsBucket.openDownloadStream(objectId)
+  readStream.pipe(response)
+})
+
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.findByIdAndRemove(request.params.id)
     .then(() => {
@@ -265,12 +279,15 @@ app.put('/api/posts/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.post('/api/posts', upload.array('images'), (request, response, next) => {
-  const imageBuffers = []
+app.post('/api/posts', Upload.array('images'), (request, response, next) => {
+  const imageInfos = []
   for (const file of request.files) {
-    const data = fs.readFileSync(file.path)
-    const image = { name: file.originalname, data: data, contentType: file.mimetype }
-    imageBuffers.push(image)
+    const image = {
+      idInBucket: file.id.toString(),
+      name: file.originalname,
+      contentType: file.mimetype
+    }
+    imageInfos.push(image)
   }
   const postObject = JSON.parse(request.body.postObject)
 
@@ -281,7 +298,7 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
     missing.push('title')
   }
 
-  const i = imageBuffers[0]
+  const i = imageInfos[0]
   if (i === undefined || i === []) {
     missing.push('images')
   }
@@ -305,7 +322,7 @@ app.post('/api/posts', upload.array('images'), (request, response, next) => {
         category: postObject.category === "" ? "Normal" : postObject.category,
         description: postObject.description,
         like: "0",
-        images: imageBuffers, // and now it's handled here
+        imageInfos: imageInfos, // and now it's handled here
         comments: postObject.comments,
         tags: postObject.tags !== undefined ? postObject.tags : [],
         author: postObject.author

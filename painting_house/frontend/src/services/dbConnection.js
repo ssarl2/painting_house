@@ -39,4 +39,9 @@ const getProfileImage = (profileObject) => {
     return request.then(response => response.data)
 }
 
-export default { getData, getDataById, createData, deleteData, updateData, login, getProfileImage }
+const getImageById = (parentId, imageId, data) => {
+    const request = axios.get(`${baseUrl}/${data}/${parentId}/${imageId}`)
+    return request.then(response => response.data)
+}
+
+export default { getData, getDataById, createData, deleteData, updateData, login, getProfileImage, getImageById }

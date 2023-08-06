@@ -1,8 +1,8 @@
 const { Mongoose } = require('./mongooseConnection')
 
 const imageSchema = new Mongoose.Schema({
+    idInBucket: String,
     name: String,
-    data: Buffer,
     contentType: String
 }, {
     toJSON: {

@@ -93,7 +93,10 @@ app.get('/files', async (req, res) => {
   console.log(files)
   const file = files.pop()
   console.log(file)
-  const readStream = gridfsBucket.openDownloadStream(file._id)
+  const str=file._id.toString()
+  const objectId = new mongoose.Types.ObjectId(str)
+  console.log(objectId)
+  const readStream = gridfsBucket.openDownloadStream(objectId)
   readStream.pipe(res)
   // res.json(file)
 })
@@ -150,6 +153,6 @@ app.delete('/files/:filename', async (req, res) => {
   // });
 });
 
-const port = 3001;
+const port = 3002;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

@@ -107,7 +107,7 @@ const Post = ({ parentPost, setPosts }) => {
                     </tr>
                     <tr>
                         <td style={{ width: '40%' }}>
-                            <ImageHandler parentImages={post.images} />
+                            <ImageHandler postId={post.id} parentImages={post.imageInfos} />
                         </td>
                         <td style={{ width: '60%' }}>
                             <table border='1' style={{ width: '100%' }}>

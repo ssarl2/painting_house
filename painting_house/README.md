@@ -18,15 +18,18 @@ Deploy a website with react to a server by using Github actions.
   - [x] Needs undo feature depending on login status. Like can be done only once
 - [ ] Delete table border at the end
 - [ ] Update storing images in DB. Big size images are causing not to display posts
-  - [ ] It affects now the like feature when it's pressed for the big size images
+  - [x] It affects now the like feature when it's pressed for the big size images
   - [x] Use GridFS to store large images over 16MB
+  - [ ] PostProfile pictures are disabled for a while. It has to be updated
   - [ ] Restruct to store images
+  - [ ] When Posts are deleted, images in the bucekt should be also deleted
 - [ ] When users of posts were deleted, it should still show the posts
 - [x] Only users can leave comments
   - [x] Match proper users to comments
   - [x] Show user's profile image
   - [ ] Need a feature of deleting comments
 - [ ] Tags are not parsed and stored correctly when it's posted
+- [ ] Bug - If likes are pressed quickly, it will be updated as not expected
 
 ### Done
 - [x] Encrypt stored password
