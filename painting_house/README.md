@@ -16,7 +16,6 @@ Deploy a website with react to a server by using Github actions.
 
 ## TODO
   - [x] Needs undo feature depending on login status. Like can be done only once
-- [ ] Delete table border at the end
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [x] It affects now the like feature when it's pressed for the big size images
   - [x] Use GridFS to store large images over 16MB
@@ -28,8 +27,9 @@ Deploy a website with react to a server by using Github actions.
   - [x] Match proper users to comments
   - [x] Show user's profile image
   - [ ] Need a feature of deleting comments
-- [ ] Tags are not parsed and stored correctly when it's posted
+- [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
+- [ ] Delete table border at the end
 
 ### Done
 - [x] Encrypt stored password
