@@ -19,9 +19,9 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Update storing images in DB. Big size images are causing not to display posts
   - [x] It affects now the like feature when it's pressed for the big size images
   - [x] Use GridFS to store large images over 16MB
-  - [ ] PostProfile pictures are disabled for a while. It has to be updated
-  - [ ] Restruct to store images
-  - [ ] When Posts are deleted, images in the bucekt should be also deleted
+  - [x] PostProfile pictures are disabled for a while. It has to be updated
+  - [x] Restruct to store images
+  - [ ] When posts and users are deleted, images in the bucekt should be also deleted
 - [ ] When users of posts were deleted, it should still show the posts
 - [x] Only users can leave comments
   - [x] Match proper users to comments

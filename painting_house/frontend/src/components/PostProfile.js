@@ -1,30 +1,42 @@
 import { useState, useEffect } from 'react'
-import { Buffer } from 'buffer'
 
 import dbConnection from '../services/dbConnection'
 
-const Profile = ({ author }) => {
+const POST_DB = 'posts'
+
+const refineImage = async (postId, imageInfo) => {
+    try {
+        // this will return image at an address. src should that that address
+        await dbConnection.getImageById(postId, imageInfo.idInBucket, POST_DB)
+
+        const refinedImage = {
+            src: `http://${dbConnection.backendAddr}:3001/api/posts/${postId}/${imageInfo.idInBucket}`,
+            loading: 'lazy',
+            alt: imageInfo.name
+        }
+        return refinedImage
+
+    } catch (error) {
+        console.error('Error fetching image:', error)
+    }
+}
+
+const Profile = ({ postId, author }) => {
     const [image, setImage] = useState({})
 
-    // useEffect(() => {
-    //     const profileObject = {
-    //         nickname: author
-    //     }
+    useEffect(() => {
+        const getImage = async () => {
+            const returnedImageInfo = await dbConnection.getProfileImage({ nickname: author })
+            const refinedImage = await refineImage(postId, returnedImageInfo)
+            setImage(refinedImage)
+        }
+        getImage()
 
-    //     dbConnection
-    //         .getProfileImage(profileObject)
-    //         .then(returnedImageObject => {
-    //             const tempImage = {
-    //                 src: `data:${returnedImageObject.contentType};base64,${Buffer.from(returnedImageObject.data).toString('base64')}`,
-    //                 alt: returnedImageObject.name
-    //             }
-    //             setImage(tempImage)
-    //         })
-    // }, [])
+    }, [])
 
     return (
         <table>
-            {/* <tbody>
+            <tbody>
                 <tr>
                     <td>
                         <img className='profileImage' src={image.src} alt={image.alt} />
@@ -33,7 +45,7 @@ const Profile = ({ author }) => {
                         <div>{author}</div>
                     </td>
                 </tr>
-            </tbody> */}
+            </tbody>
         </table>
     )
 }

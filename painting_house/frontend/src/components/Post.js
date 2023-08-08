@@ -123,7 +123,7 @@ const Post = ({ parentPost, setPosts }) => {
                                                 <tbody>
                                                     <tr>
                                                         <td style={{ width: '85%' }}>
-                                                            <PostProfile author={post.author} />
+                                                            <PostProfile postId={post.id} author={post.author} />
                                                         </td>
                                                         <td onClick={() => handleLikeClick(post.id)} style={{ width: '15%', cursor: 'default' }}>
                                                             <img className='likeImage' src={require('../images/like.png')} />

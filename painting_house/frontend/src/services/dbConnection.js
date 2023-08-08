@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const addr = 'localhost'
-const baseUrl = `http://${addr}:3001/api`
+const backendAddr = 'localhost'
+const baseUrl = `http://${backendAddr}:3001/api`
 
 const getData = (data) => {
     const request = axios.get(`${baseUrl}/${data}`)
@@ -44,4 +44,4 @@ const getImageById = (parentId, imageId, data) => {
     return request.then(response => response.data)
 }
 
-export default { getData, getDataById, createData, deleteData, updateData, login, getProfileImage, getImageById }
+export default { backendAddr, getData, getDataById, createData, deleteData, updateData, login, getProfileImage, getImageById }

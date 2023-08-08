@@ -11,14 +11,15 @@ const refineImages = async (postId, parentImages) => {
     await Promise.all(
         parentImages.map(async image => {
             try {
+                // this will return image at an address. src should that that address
                 await dbConnection.getImageById(postId, image.idInBucket, POST_DB)
 
-                const newImage = {
-                    src: `http://127.0.0.1:3001/api/posts/${postId}/${image.idInBucket}`,
+                const refinedImage = {
+                    src: `http://${dbConnection.backendAddr}:3001/api/posts/${postId}/${image.idInBucket}`,
                     loading: 'lazy',
                     alt: image.name
                 }
-                refinedImages.push(newImage)
+                refinedImages.push(refinedImage)
 
             } catch (error) {
                 console.error('Error fetching image:', error)

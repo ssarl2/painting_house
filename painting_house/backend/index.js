@@ -58,7 +58,7 @@ app.post('/api/users/profile', (request, response, next) => {
   const nickname = request.body.nickname
 
   User.find({ 'profile.nickname': nickname }).then(users => {
-    response.json(users[0].profile.image)
+    response.json(users[0].profile.imageInfo)
   })
     .catch(error => next(error))
 })
@@ -116,8 +116,7 @@ app.put('/api/users/:id', (request, response, next) => {
 
 app.post('/api/users', Upload.array('image'), async (request, response, next) => {
   const file = request.files[0]
-  const data = fs.readFileSync(file.path)
-  const image = { name: file.originalname, data: data, contentType: file.mimetype }
+  const imageInfo = { idInBucket: file.id.toString(), name: file.originalname, contentType: file.mimetype }
   const userObject = JSON.parse(request.body.userObject)
 
   const missing = []
@@ -137,7 +136,7 @@ app.post('/api/users', Upload.array('image'), async (request, response, next) =>
     missing.push('nickname')
   }
 
-  const i = image
+  const i = imageInfo
   if (i === undefined || i === []) {
     missing.push('image')
   }
@@ -167,7 +166,7 @@ app.post('/api/users', Upload.array('image'), async (request, response, next) =>
   const hashedPassword = await bcrypt.hash(plainPassword, saltRounds)
 
   const tempProfileObject = userObject.profile
-  tempProfileObject.image = image // and now it's handled here
+  tempProfileObject.imageInfo = imageInfo // and now it's handled here
 
   const user = new User({
     email: userObject.email,
