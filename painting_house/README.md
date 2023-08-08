@@ -27,6 +27,7 @@ Deploy a website with react to a server by using Github actions.
   - [x] Match proper users to comments
   - [x] Show user's profile image
   - [ ] Need a feature of deleting comments
+- [ ] Change the way of seleting a profile image. Currently, it can select multiple images
 - [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
 - [ ] Delete table border at the end
