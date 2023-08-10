@@ -334,6 +334,17 @@ app.post('/api/posts', Upload.array('images'), (request, response, next) => {
     })
 })
 
+app.delete('/api/bucket/:id', async (request, response, next) => {
+  const bucketId = request.params.id
+  const gridfsBucket = await GridfsBucket()
+  const objectId = new ObjectId(bucketId)
+  gridfsBucket.delete(objectId)
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
 app.use(unknownEndpoint)
 app.use(errorHandler)
 

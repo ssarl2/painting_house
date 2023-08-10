@@ -16,17 +16,8 @@ Deploy a website with react to a server by using Github actions.
 
 ## TODO
   - [x] Needs undo feature depending on login status. Like can be done only once
-- [ ] Update storing images in DB. Big size images are causing not to display posts
-  - [x] It affects now the like feature when it's pressed for the big size images
-  - [x] Use GridFS to store large images over 16MB
-  - [x] PostProfile pictures are disabled for a while. It has to be updated
-  - [x] Restruct to store images
-  - [ ] When posts and users are deleted, images in the bucekt should be also deleted
 - [ ] When users of posts were deleted, it should still show the posts
-- [x] Only users can leave comments
-  - [x] Match proper users to comments
-  - [x] Show user's profile image
-  - [ ] Need a feature of deleting comments
+- [ ] Need a feature of deleting comments
 - [ ] Change the way of seleting a profile image. Currently, it can select multiple images
 - [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
@@ -45,3 +36,12 @@ Deploy a website with react to a server by using Github actions.
 - [x] Bug - after editing, all posts change to the edited post. And the login status is gone
 - [x] Feature - when page is refreshed, login info is gone. It should keep
 - [x] When logged in, do not show login button
+- [x] Only users can leave comments
+  - [x] Match proper users to comments
+  - [x] Show user's profile image
+- [x] Update storing images in DB. Big size images are causing not to display posts
+  - [x] It affects now the like feature when it's pressed for the big size images
+  - [x] Use GridFS to store large images over 16MB
+  - [x] PostProfile pictures are disabled for a while. It has to be updated
+  - [x] Restruct to store images
+  - [x] When posts and users are deleted, images in the bucket should be also deleted

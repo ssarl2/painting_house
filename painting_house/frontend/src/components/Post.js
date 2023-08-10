@@ -41,12 +41,21 @@ const Post = ({ parentPost, setPosts }) => {
         })
     }
 
-    const handleDeleteClick = (id, title) => {
-        if (window.confirm(`Delete ${title}?`))
-            dbConnection
-                .deleteData(id, title, POST_DB)
-                .then(() => { return dbConnection.getData(POST_DB) })
-                .then(currentPosts => setPosts(currentPosts))
+    const handleDeleteClick = async (id, title, imageInfos) => {
+        if (window.confirm(`Delete ${title}?`)) {
+            try {
+                await dbConnection.deleteData(id, title, POST_DB)
+
+                await Promise.all(imageInfos.map(async info => {
+                    await dbConnection.deleteBucket(info.idInBucket)
+                }))
+
+                const currentPosts = await dbConnection.getData(POST_DB)
+                setPosts(currentPosts)
+            } catch (error) {
+                console.error('Error deleting post and images')
+            }
+        }
     }
 
     const handleLikeClick = async (id) => {
@@ -141,7 +150,7 @@ const Post = ({ parentPost, setPosts }) => {
                     {user?.profile?.nickname === post.author &&
                         <tr>
                             <td colSpan='2'>
-                                <button onClick={() => { handleDeleteClick(post.id, post.title) }} style={{ float: 'right' }}>Delete</button>
+                                <button onClick={() => { handleDeleteClick(post.id, post.title, post.imageInfos) }} style={{ float: 'right' }}>Delete</button>
                                 <button onClick={() => { handleEditClick(post.id, post.title, post.category, post.description, post.tags) }} style={{ float: 'right', marginRight: '1vw' }}>Edit</button>
                             </td>
                         </tr>}

@@ -21,7 +21,6 @@ const createData = (newObject, data) => {
 const deleteData = (id, name, data) => {
     return axios.delete(`${baseUrl}/${data}/${id}`)
         .catch(error => console.log(error))
-        .then(() => console.log(`deleted ${name}`))
 }
 
 const updateData = (id, newObject, data) => {
@@ -44,4 +43,9 @@ const getImageById = (parentId, imageId, data) => {
     return request.then(response => response.data)
 }
 
-export default { backendAddr, getData, getDataById, createData, deleteData, updateData, login, getProfileImage, getImageById }
+const deleteBucket = (bucketId) => {
+    return axios.delete(`${baseUrl}/bucket/${bucketId}`)
+        .catch(error => console.log(error))
+}
+
+export default { backendAddr, getData, getDataById, createData, deleteData, updateData, login, getProfileImage, getImageById, deleteBucket }
