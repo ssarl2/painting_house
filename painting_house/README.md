@@ -15,18 +15,22 @@ Deploy a website with react to a server by using Github actions.
 7. Render deploy
 
 ## TODO
-  - [x] Needs undo feature depending on login status. Like can be done only once
-- [ ] When users of posts were deleted, it should still show the posts
+- [ ] Delete an user feature
+  - [ ] When users of posts were deleted, it should still show the posts
 - [ ] Need a feature of deleting comments
 - [ ] Change the way of seleting a profile image. Currently, it can select multiple images
+- [ ] organize the order of pictures when uploading
 - [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
+- [ ] Bug - An empty comment can be added
+- [ ] Bug - When commented backend is crashed because PostComment updates an user, but no info of  a profile image. So, imageInfo object is gone
 - [ ] Delete table border at the end
 
 ### Done
 - [x] Encrypt stored password
 - [x] Need to update db to store one image instead of array for profile image
 - [x] Add like feature
+  - [x] Needs undo feature depending on login status. Like can be done only once
 - [x] Show Edit and Delete buttons for the author
 - [x] Exclude white-space in tags
 - [x] Bug - tags are not displaying correctly. For example, last tag
