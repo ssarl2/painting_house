@@ -1,5 +1,4 @@
 require('dotenv').config()
-const fs = require('fs');
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -93,12 +92,12 @@ app.put('/api/users/:id', (request, response, next) => {
 
         const user = {
           email: body.email,
-          password: body.password === "" || body.password === undefined ? nuu.password : body.password,
+          password: !body.password ? nuu.password : body.password,
           profile: {
-            nickname: body.profile.nickname === "" || body.profile.nickname === undefined ? nuu.profile.nickname : body.profile.nickname,
-            image: (body.profile.image === "" || body.profile.image === undefined) ? nuu.profile.image : body.profile.image
+            nickname: !body.profile.nickname ? nuu.profile.nickname : body.profile.nickname,
+            imageInfo: !body.profile.imageInfo ? nuu.profile.imageInfo : body.profile.imageInfo
           },
-          postHistory: body.postHistory === [] ? nuu.postHistory : body.postHistory
+          postHistory: !body.postHistory ? nuu.postHistory : body.postHistory
         }
 
         User.findByIdAndUpdate(request.params.id, user, { new: true })
@@ -120,24 +119,16 @@ app.post('/api/users', Upload.array('image'), async (request, response, next) =>
   const userObject = JSON.parse(request.body.userObject)
 
   const missing = []
-
-  const e = userObject.email
-  if (e === undefined || e === "") {
+  if (!userObject.email) {
     missing.push('email')
   }
-
-  const p = userObject.password
-  if (p === undefined || p === "") {
+  if (!userObject.password) {
     missing.push('password')
   }
-
-  const n = userObject.profile.nickname
-  if (n === undefined || n === "") {
+  if (!userObject.profile.nickname) {
     missing.push('nickname')
   }
-
-  const i = imageInfo
-  if (i === undefined || i === []) {
+  if (!imageInfo) {
     missing.push('image')
   }
 
@@ -201,7 +192,7 @@ app.post('/api/login', async (request, response, next) => {
     return response.json(user)
 
   } catch (error) {
-    console.log('Login failed in backend', error)
+    console.error('Login failed in backend', error)
   }
 })
 
@@ -224,13 +215,7 @@ app.get('/api/posts/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.get('/api/posts/:id/:imageId', async (request, response, next) => {
-  const post = await Post.findById(request.params.id)
-
-  if (!post) {
-    response.status(404).end()
-  }
-
+app.get('/api/images/:imageId', async (request, response, next) => {
   const imageId = request.params.imageId
   const objectId = new ObjectId(imageId)
   const gridfsBucket = await GridfsBucket()
@@ -255,13 +240,13 @@ app.put('/api/posts/:id', (request, response, next) => {
       if (nup) {
 
         const post = {
-          title: body.title === "" || body.title === undefined ? nup.title : body.title,
-          category: body.category === "" || body.category === undefined ? nup.category : body.category,
-          description: body.description === "" || body.description === undefined ? nup.description : body.description,
-          like: body.like === "" || body.like === undefined ? nup.like : body.like,
+          title: !body.title ? nup.title : body.title,
+          category: !body.category ? nup.category : body.category,
+          description: !body.description ? nup.description : body.description,
+          like: !body.like ? nup.like : body.like,
           images: nup.images,
-          comments: body.comments === "" || body.comments === undefined ? nup.comments : body.comments,
-          tags: body.tags === "" || body.tags === undefined ? nup.tags : body.tags,
+          comments: !body.comments ? nup.comments : body.comments,
+          tags: !body.tags ? nup.tags : body.tags,
           author: nup.author
         }
 
@@ -291,14 +276,10 @@ app.post('/api/posts', Upload.array('images'), (request, response, next) => {
   const postObject = JSON.parse(request.body.postObject)
 
   const missing = []
-
-  const t = postObject.title
-  if (t === undefined || t === "") {
+  if (!postObject.title) {
     missing.push('title')
   }
-
-  const i = imageInfos[0]
-  if (i === undefined || i === []) {
+  if (!imageInfos[0]) {
     missing.push('images')
   }
 
@@ -323,7 +304,7 @@ app.post('/api/posts', Upload.array('images'), (request, response, next) => {
         like: "0",
         imageInfos: imageInfos, // and now it's handled here
         comments: postObject.comments,
-        tags: postObject.tags !== undefined ? postObject.tags : [],
+        tags: !postObject.tags ? postObject.tags : [],
         author: postObject.author
       })
 

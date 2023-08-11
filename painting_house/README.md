@@ -19,11 +19,9 @@ Deploy a website with react to a server by using Github actions.
   - [ ] When users of posts were deleted, it should still show the posts
 - [ ] Need a feature of deleting comments
 - [ ] Change the way of seleting a profile image. Currently, it can select multiple images
-- [ ] organize the order of pictures when uploading
+- [ ] Make it free to organize the order of pictures when uploading
 - [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
-- [ ] Bug - An empty comment can be added
-- [ ] Bug - When commented backend is crashed because PostComment updates an user, but no info of  a profile image. So, imageInfo object is gone
 - [ ] Delete table border at the end
 
 ### Done
@@ -49,3 +47,5 @@ Deploy a website with react to a server by using Github actions.
   - [x] PostProfile pictures are disabled for a while. It has to be updated
   - [x] Restruct to store images
   - [x] When posts and users are deleted, images in the bucket should be also deleted
+- [x] Bug - An empty comment can be added -> should not be added
+- [x] Bug - When commented backend is crashed because PostComment updates an user, but no info of  a profile image. So, imageInfo object is gone

@@ -38,8 +38,8 @@ const getProfileImage = (profileObject) => {
     return request.then(response => response.data)
 }
 
-const getImageById = (parentId, imageId, data) => {
-    const request = axios.get(`${baseUrl}/${data}/${parentId}/${imageId}`)
+const getImageById = (imageId) => {
+    const request = axios.get(`${baseUrl}/images/${imageId}`)
     return request.then(response => response.data)
 }
 

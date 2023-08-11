@@ -5,17 +5,17 @@ import dbConnection from '../services/dbConnection'
 
 const POST_DB = 'posts'
 
-const refineImages = async (postId, parentImages) => {
+const refineImages = async (parentImages) => {
     const refinedImages = []
 
     await Promise.all(
         parentImages.map(async image => {
             try {
                 // this will return image at an address. src should that that address
-                await dbConnection.getImageById(postId, image.idInBucket, POST_DB)
+                await dbConnection.getImageById(image.idInBucket)
 
                 const refinedImage = {
-                    src: `http://${dbConnection.backendAddr}:3001/api/posts/${postId}/${image.idInBucket}`,
+                    src: `http://${dbConnection.backendAddr}:3001/api/images/${image.idInBucket}`,
                     loading: 'lazy',
                     alt: image.name
                 }
@@ -29,7 +29,7 @@ const refineImages = async (postId, parentImages) => {
     return refinedImages
 }
 
-const ImageHandler = ({ postId, parentImages }) => {
+const ImageHandler = ({ parentImages }) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [popup, setPopup] = useState(false)
     const [lightboxImages, setLightboxImages] = useState([])
@@ -37,12 +37,12 @@ const ImageHandler = ({ postId, parentImages }) => {
 
     useEffect(() => {
         const getImages = async () => {
-            const refinedImages = await refineImages(postId, parentImages)
+            const refinedImages = await refineImages(parentImages)
             setLightboxImages(refinedImages)
         }
 
         getImages()
-    }, [postId, parentImages])
+    }, [parentImages])
 
     const handleSwipe = useSwipeable({
         onSwipedLeft: () => {

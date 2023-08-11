@@ -1,11 +1,27 @@
 import { useState, useEffect, useContext } from 'react'
-import { Buffer } from 'buffer'
 
 import { UserContext } from './UserContext'
 import dbConnection from '../services/dbConnection'
 
 const POST_DB = 'posts'
 const USER_DB = 'users'
+
+const refineImage = async (imageInfo) => {
+    try {
+        // this will return image at an address. src should that that address
+        await dbConnection.getImageById(imageInfo.idInBucket)
+
+        const refinedImage = {
+            src: `http://${dbConnection.backendAddr}:3001/api/images/${imageInfo.idInBucket}`,
+            loading: 'lazy',
+            alt: imageInfo.name
+        }
+        return refinedImage
+
+    } catch (error) {
+        console.error('Error fetching image:', error)
+    }
+}
 
 const PostComment = ({ post, setPost }) => {
     const postId = post.id
@@ -14,22 +30,16 @@ const PostComment = ({ post, setPost }) => {
     const { user, setUser } = useContext(UserContext)
 
     useEffect(() => {
+
         const imagePromises = post.comments.map(async comment => {
-            if (comment.image) {
+            if (comment.imageInfo) {
                 return null
             }
 
-            const commentorObject = {
-                nickname: comment.commentor
-            }
+            const returnedImageInfo = await dbConnection.getProfileImage({ nickname: comment.commentor })
+            const refinedImage = await refineImage(returnedImageInfo)
 
-            const returnedImageObject = await dbConnection.getProfileImage(commentorObject)
-            const tempImage = {
-                src: `data:${returnedImageObject.contentType};base64,${Buffer.from(returnedImageObject.data).toString('base64')}`,
-                alt: returnedImageObject.name
-            }
-
-            return { ...comment, image: tempImage }
+            return { ...comment, image: refinedImage }
         })
 
         Promise.all(imagePromises).then(commentsWithImages => {
@@ -40,6 +50,10 @@ const PostComment = ({ post, setPost }) => {
 
 
     const handleClick = async (comment, id) => {
+        if (!comment) {
+            return null
+        }
+
         const newComment = {
             commentor: user.profile.nickname,
             comment: comment

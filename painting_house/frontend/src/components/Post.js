@@ -116,7 +116,7 @@ const Post = ({ parentPost, setPosts }) => {
                     </tr>
                     <tr>
                         <td style={{ width: '40%' }}>
-                            <ImageHandler postId={post.id} parentImages={post.imageInfos} />
+                            <ImageHandler parentImages={post.imageInfos} />
                         </td>
                         <td style={{ width: '60%' }}>
                             <table border='1' style={{ width: '100%' }}>
@@ -158,7 +158,6 @@ const Post = ({ parentPost, setPosts }) => {
                         <td colSpan='2'>
                             <PostComment post={post} setPost={setPost} />
                         </td>
-
                     </tr>
                 </tbody>
             </table>

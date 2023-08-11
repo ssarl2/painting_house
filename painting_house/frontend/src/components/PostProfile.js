@@ -4,13 +4,13 @@ import dbConnection from '../services/dbConnection'
 
 const POST_DB = 'posts'
 
-const refineImage = async (postId, imageInfo) => {
+const refineImage = async (imageInfo) => {
     try {
         // this will return image at an address. src should that that address
-        await dbConnection.getImageById(postId, imageInfo.idInBucket, POST_DB)
+        await dbConnection.getImageById(imageInfo.idInBucket)
 
         const refinedImage = {
-            src: `http://${dbConnection.backendAddr}:3001/api/posts/${postId}/${imageInfo.idInBucket}`,
+            src: `http://${dbConnection.backendAddr}:3001/api/images/${imageInfo.idInBucket}`,
             loading: 'lazy',
             alt: imageInfo.name
         }
@@ -21,13 +21,13 @@ const refineImage = async (postId, imageInfo) => {
     }
 }
 
-const Profile = ({ postId, author }) => {
+const Profile = ({ author }) => {
     const [image, setImage] = useState({})
 
     useEffect(() => {
         const getImage = async () => {
             const returnedImageInfo = await dbConnection.getProfileImage({ nickname: author })
-            const refinedImage = await refineImage(postId, returnedImageInfo)
+            const refinedImage = await refineImage(returnedImageInfo)
             setImage(refinedImage)
         }
         getImage()
