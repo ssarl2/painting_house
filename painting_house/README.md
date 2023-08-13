@@ -22,6 +22,7 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Make it free to organize the order of pictures when uploading
 - [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
+- [ ] Bug - When commented or liked to a pots, the picture index changes sometimes
 - [ ] Delete table border at the end
 
 ### Done

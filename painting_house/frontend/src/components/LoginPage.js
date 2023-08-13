@@ -39,7 +39,7 @@ const Login = () => {
                 </div>
                 <div>
                     <label>Password : </label>
-                    <input value={password} onChange={event => setPassword(event.target.value)} ></input>
+                    <input value={password} type='password' onChange={event => setPassword(event.target.value)} ></input>
                 </div>
                 <button type='submit'>Login</button>
                 <button onClick={() => navigate('/create_user')} style={{ marginLeft: '10px' }}>Create user</button>
