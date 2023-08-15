@@ -304,7 +304,7 @@ app.post('/api/posts', Upload.array('images'), (request, response, next) => {
         like: "0",
         imageInfos: imageInfos, // and now it's handled here
         comments: postObject.comments,
-        tags: !postObject.tags ? postObject.tags : [],
+        tags: postObject.tags ? postObject.tags : [],
         author: postObject.author
       })
 

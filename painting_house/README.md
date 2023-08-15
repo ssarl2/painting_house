@@ -20,7 +20,6 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Need a feature of deleting comments
 - [ ] Change the way of seleting a profile image. Currently, it can select multiple images
 - [ ] Make it free to organize the order of pictures when uploading
-- [ ] Bug - Tags are not parsed and stored correctly when it's posted
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
 - [ ] Bug - When commented or liked to a post, the picture index changes sometimes
 - [ ] Delete table border at the end
@@ -50,3 +49,4 @@ Deploy a website with react to a server by using Github actions.
   - [x] When posts and users are deleted, images in the bucket should be also deleted
 - [x] Bug - An empty comment can be added -> should not be added
 - [x] Bug - When commented backend is crashed because PostComment updates an user, but no info of  a profile image. So, imageInfo object is gone
+- [x] Bug - Tags are not parsed and stored correctly when it's posted

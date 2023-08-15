@@ -14,18 +14,15 @@ const WritePage = () => {
     const [newCategory, setNewCategory] = useState('')
     const [selectedImages, setSelectedImages] = useState([])
     const [newDescription, setNewDescription] = useState('')
-    const [newTags, setNewTags] = useState([])
+    const [newTags, setNewTags] = useState('')
     const { user } = useContext(UserContext)
 
     const addPost = (event) => {
         event.preventDefault()
 
-        let filteredTags
-        if (newTags === '') {
-            const tagsArray = newTags.split(/[,\s]+/).map(item => item.trim())
-            filteredTags = tagsArray.filter(tag => tag !== '')
-        } else {
-            filteredTags = newTags
+        const filteredTags = []
+        if (newTags !== '') {
+            newTags.split(/[,\s]+/).map(item => filteredTags.push(item.trim()))
         }
 
         const postObject = {
@@ -47,11 +44,6 @@ const WritePage = () => {
         dbConnection
             .createData(formData, POST_DB)
             .then(returnedObject => {
-                setNewTitle('')
-                setNewCategory('')
-                setSelectedImages([])
-                setNewDescription('')
-                setNewTags([])
                 navigate('/')
             })
             .catch(error => console.log(error))
