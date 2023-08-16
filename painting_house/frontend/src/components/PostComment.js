@@ -24,7 +24,6 @@ const refineImage = async (imageInfo) => {
 }
 
 const PostComment = ({ post, setPost }) => {
-    const postId = post.id
     const [inputValue, setInputValue] = useState('')
     const [commentsWithProfile, setCommentsWithProfile] = useState([])
     const { user, setUser } = useContext(UserContext)
@@ -48,8 +47,15 @@ const PostComment = ({ post, setPost }) => {
         })
     }, [post])
 
+    const deleteComment = (commentId, postId) => {
+        const updatedComments = post.comments.filter(comment => comment.id !== commentId)
+        const updatedPost = { ...post, comments: updatedComments }
+        dbConnection
+            .updateData(postId, updatedPost, POST_DB)
+            .then(returnedPost => { setPost(returnedPost) })
+    }
 
-    const handleClick = async (comment, id) => {
+    const handleClick = async (comment, postId) => {
         if (!comment) {
             return null
         }
@@ -59,7 +65,7 @@ const PostComment = ({ post, setPost }) => {
             comment: comment
         }
 
-        const foundPostHistory = await user.postHistory.find(post => post['postId'] === id)
+        const foundPostHistory = await user.postHistory.find(post => post['postId'] === postId)
 
         let updatedUser
         if (foundPostHistory) {
@@ -67,7 +73,7 @@ const PostComment = ({ post, setPost }) => {
             updatedUser = { ...user, postHistory: updatedPostHistory }
         } else {
             const newPostHistory = {
-                postId: id,
+                postId: postId,
                 liked: false,
                 comments: [newComment]
             }
@@ -80,7 +86,7 @@ const PostComment = ({ post, setPost }) => {
             .then(returnedUser => setUser(returnedUser))
 
         await dbConnection
-            .updateData(id, updatedPost, POST_DB)
+            .updateData(postId, updatedPost, POST_DB)
             .then(returnedPost => { setPost(returnedPost) })
 
         setInputValue('')
@@ -107,7 +113,10 @@ const PostComment = ({ post, setPost }) => {
                                                 </tr>
                                                 <tr>
                                                     <td style={{ lineBreak: 'anywhere' }}>
-                                                        {comment.comment}
+                                                        {comment.comment}&nbsp;
+                                                        {user.profile.nickname === comment.commentor && (
+                                                            <button style={{ color: 'gray', border: 'none', background: 'none' }} onClick={() => deleteComment(comment.id, post.id)}>delete</button>
+                                                        )}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -124,7 +133,7 @@ const PostComment = ({ post, setPost }) => {
                 Object.keys(user).length > 0 && (
                     <div style={{ display: 'flex' }}>
                         <input style={{ flex: 1, marginRight: '1vw' }} value={inputValue} onChange={(event) => setInputValue(event.target.value)} />
-                        <button onClick={() => { handleClick(inputValue, postId) }}>Comment</button>
+                        <button onClick={() => { handleClick(inputValue, post.id) }}>Comment</button>
                     </div>
                 )
             }

@@ -18,7 +18,7 @@ const createData = (newObject, data) => {
     return request.then(response => response.data)
 }
 
-const deleteData = (id, name, data) => {
+const deleteData = (id, data) => {
     return axios.delete(`${baseUrl}/${data}/${id}`)
         .catch(error => console.log(error))
 }
