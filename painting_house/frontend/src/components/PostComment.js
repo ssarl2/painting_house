@@ -114,7 +114,7 @@ const PostComment = ({ post, setPost }) => {
                                                 <tr>
                                                     <td style={{ lineBreak: 'anywhere' }}>
                                                         {comment.comment}&nbsp;
-                                                        {user.profile.nickname === comment.commentor && (
+                                                        {user.profile?.nickname === comment.commentor && (
                                                             <button style={{ color: 'gray', border: 'none', background: 'none' }} onClick={() => deleteComment(comment.id, post.id)}>delete</button>
                                                         )}
                                                     </td>
