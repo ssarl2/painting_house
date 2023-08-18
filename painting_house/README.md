@@ -17,8 +17,8 @@ Deploy a website with react to a server by using Github actions.
 ## TODO
 - [ ] Delete an user feature
   - [ ] When users of posts were deleted, it should still show the posts
-- [ ] Change the way of seleting a profile image. Currently, it can select multiple images
-- [ ] Make it free to organize the order of pictures when uploading
+- [?] Change the way of seleting a profile image. Currently, it can select multiple images
+- [?] Make it free to organize the order of pictures when uploading
 - [ ] Load only a few posts and load more when it's scrolled down
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
 - [ ] Bug - When commented or liked to a post, the picture index changes sometimes
