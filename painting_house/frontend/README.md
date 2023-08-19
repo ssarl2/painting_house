@@ -11,6 +11,7 @@ npm install react-dropzone
 npm install buffer
 npm install react-swipeable
 npm install react-spring-lightbox
+npm install react-beautiful-dnd
 ```
 ## References
 Design, Dribbble - [reference](frontend/reference.png)  
