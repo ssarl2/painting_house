@@ -44,7 +44,7 @@ const Post = ({ parentPost, setPosts }) => {
     const handleDeleteClick = async (id, title, imageInfos) => {
         if (window.confirm(`Delete ${title}?`)) {
             try {
-                await dbConnection.deleteData(id, title, POST_DB)
+                await dbConnection.deleteData(id, POST_DB)
 
                 await Promise.all(imageInfos.map(async info => {
                     await dbConnection.deleteBucket(info.idInBucket)
