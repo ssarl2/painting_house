@@ -17,10 +17,10 @@ Deploy a website with react to a server by using Github actions.
 ## TODO
 - [ ] Delete an user feature
   - [ ] When users of posts were deleted, it should still show the posts
+- [ ] Style the image position in the middle
 - [?] Change the way of seleting a profile image. Currently, it can select multiple images
 - [ ] Load only a few posts and load more when it's scrolled down
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
-- [ ] Bug - When commented or liked to a post, the picture index changes sometimes
 - [ ] Delete table border at the end
 
 ### Done
@@ -51,3 +51,5 @@ Deploy a website with react to a server by using Github actions.
 - [x] Bug - Tags are not parsed and stored correctly when it's posted
 - [x] Need a feature of deleting comments
 - [x] Make it free to organize the order of pictures when uploading
+- [x] Bug - When commented or liked to a post, the picture index changes sometimes
+  - This was due to the asynchronous problem. Promise.all makes to fetch the data in different time depending on its size. Eventually, it messes the order of pictures.

@@ -3,29 +3,24 @@ import { useSwipeable } from 'react-swipeable'
 import Lightbox from 'react-spring-lightbox'
 import dbConnection from '../services/dbConnection'
 
-const POST_DB = 'posts'
-
 const refineImages = async (parentImages) => {
     const refinedImages = []
+    for (const image of parentImages) {
+        try {
+            // this will return image at an address. src should that that address
+            await dbConnection.getImageById(image.idInBucket)
 
-    await Promise.all(
-        parentImages.map(async image => {
-            try {
-                // this will return image at an address. src should that that address
-                await dbConnection.getImageById(image.idInBucket)
-
-                const refinedImage = {
-                    src: `http://${dbConnection.backendAddr}:3001/api/images/${image.idInBucket}`,
-                    loading: 'lazy',
-                    alt: image.name
-                }
-                refinedImages.push(refinedImage)
-
-            } catch (error) {
-                console.error('Error fetching image:', error)
+            const refinedImage = {
+                src: `http://${dbConnection.backendAddr}:3001/api/images/${image.idInBucket}`,
+                loading: 'lazy',
+                alt: image.name
             }
-        })
-    )
+            refinedImages.push(refinedImage)
+
+        } catch (error) {
+            console.error('Error fetching image:', error)
+        }
+    }
     return refinedImages
 }
 
@@ -40,7 +35,6 @@ const ImageHandler = ({ parentImages }) => {
             const refinedImages = await refineImages(parentImages)
             setLightboxImages(refinedImages)
         }
-
         getImages()
     }, [parentImages])
 
