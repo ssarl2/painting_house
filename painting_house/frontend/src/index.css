@@ -4,6 +4,20 @@
     object-fit: contain;
 }
 
+.uploadImage {
+    width: 40vw;
+    height: 40vw;
+    object-fit: contain;
+}
+
+.centerUploadImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 .swiper {
     display: flex;
     overflow-x: visible;

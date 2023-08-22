@@ -9,18 +9,18 @@ const fileItems = (selectedImages, option) => {
         if (selectedImage === undefined)
             return []
 
-        return <img className='postImage' src={`${URL.createObjectURL(selectedImage)}`} key={0} alt="" />
+        return <img className='uploadImage' src={`${URL.createObjectURL(selectedImage)}`} key={0} alt='' />
     }
     else if (option === 2) // multiple images
     {
         return selectedImages.map((file, index) => (
             <Draggable key={index} draggableId={`image-${index}`} index={index}>
                 {(provided) => (
-                    <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                    <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className='centerUploadImage'>
                         <img
-                            className="postImage"
+                            className='uploadImage'
                             src={`${URL.createObjectURL(file)}`}
-                            alt=""
+                            alt=''
                         />
                     </div>
                 )}
@@ -51,7 +51,7 @@ const ImageUploader = ({ selectedImages, setSelectedImages, hints, option = 2 })
                 <p>{hints}</p>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="images">
+                <Droppable droppableId='images'>
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
                             {fileItems(selectedImages, option)}
