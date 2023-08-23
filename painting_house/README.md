@@ -20,6 +20,7 @@ Deploy a website with react to a server by using Github actions.
 - [?] Change the way of seleting a profile image. Currently, it can select multiple images
 - [ ] Load only a few posts and load more when it's scrolled down
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
+- [ ] Bug - When login failed, the backend crushes
 - [ ] Delete table border at the end
 
 ### Done
