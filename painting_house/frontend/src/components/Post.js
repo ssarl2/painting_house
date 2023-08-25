@@ -105,8 +105,8 @@ const Post = ({ parentPost, setPosts }) => {
     }
 
     return (
-        <div>
-            <table border='1' style={{ width: '100%' }}>
+        <div style={{ marginBottom: '4vw' }}>
+            <table style={{ width: '100%' }}>
                 <tbody>
                     <tr>
                         <td colSpan='2'>{post.category}</td>
@@ -119,7 +119,7 @@ const Post = ({ parentPost, setPosts }) => {
                             <ImageHandler parentImages={post.imageInfos} />
                         </td>
                         <td style={{ width: '60%' }}>
-                            <table border='1' style={{ width: '100%' }}>
+                            <table style={{ width: '100%' }}>
                                 <tbody>
                                     <tr>
                                         <td>
@@ -128,7 +128,7 @@ const Post = ({ parentPost, setPosts }) => {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table border='1' style={{ width: '100%', height: '10vw' }}>
+                                            <table style={{ width: '100%', height: '10vw' }}>
                                                 <tbody>
                                                     <tr>
                                                         <td style={{ width: '85%' }}>

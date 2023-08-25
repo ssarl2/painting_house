@@ -21,7 +21,6 @@ Deploy a website with react to a server by using Github actions.
 - [ ] Load only a few posts and load more when it's scrolled down
 - [ ] Bug - If likes are pressed quickly, it will be updated as not expected
 - [ ] Bug - When login failed, the backend crushes
-- [ ] Delete table border at the end
 
 ### Done
 - [x] Encrypt stored password
@@ -54,3 +53,4 @@ Deploy a website with react to a server by using Github actions.
 - [x] Bug - When commented or liked to a post, the picture index changes sometimes
   - This was due to the asynchronous problem. Promise.all makes to fetch the data in different time depending on its size. Eventually, it messes the order of pictures.
 - [x] Style the image position in the middle
+- [x] Delete table border at the end

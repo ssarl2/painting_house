@@ -29,7 +29,9 @@ const HomePage = () => {
         </table>
       )}
       {
-        posts.map(post => <Post key={post.id} parentPost={post} setPosts={setPosts} />)
+        posts.map(post =>
+          <Post key={post.id} parentPost={post} setPosts={setPosts} />
+        )
       }
     </div>
   )
