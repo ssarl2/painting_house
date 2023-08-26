@@ -1,6 +1,8 @@
 ## Install
 `npm install`  
-
+Set environment variables
+- PORT
+- MONGODB_URI
 ## Run
 `npm start`  
 

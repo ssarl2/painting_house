@@ -1,0 +1,42 @@
+{
+    "posts": [
+        {
+            "title": "mushroom world",
+            "category": "fantasy",
+            "like": "125",
+            "images": [
+                "image1",
+                "image2"
+            ],
+            "comments": [
+                "comments1",
+                "comments2"
+            ],
+            "tags": [
+                "tag1",
+                "tag2"
+            ],
+            "author":"users.profile.nickname",
+            "id": 1
+        },
+        {
+            "title": "habenero house",
+            "category": "hell",
+            "like": "666",
+            "images": [
+                "image1",
+                "image2"
+            ],
+            "comments": [
+                "comments1",
+                "comments2"
+            ],
+            "tags": [
+                "tag1",
+                "tag2"
+            ],
+            "author":"users.profile.nickname",
+            "id": 2
+        }
+    ]
+}

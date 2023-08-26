@@ -1,0 +1,85 @@
+.postImage {
+    width: 100%;
+    height: 40vw;
+    object-fit: contain;
+}
+
+.uploadImage {
+    width: 40vw;
+    height: 40vw;
+    object-fit: contain;
+}
+
+.centerUploadImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper {
+    display: flex;
+    overflow-x: visible;
+}
+
+.postImageIndex {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 4px;
+    border: none;
+    padding: 0;
+}
+
+.postDescriptionAndTagsBox {
+    width: 100%;
+    height: 30vw;
+    overflow-y: auto;
+    line-break: anywhere;
+    flex-shrink: 1;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; /* For Firefox */
+}
+
+.postDescriptionAndTagsBox::-webkit-scrollbar {
+    width: 0.1em;
+    background-color: transparent;
+}
+
+.postDescriptionAndTagsBox::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.postTextExpendingButton {
+    color: gray;
+    background: none;
+    border: none;
+}
+
+.hidePostTextExpendingButton {
+    visibility: hidden;
+}
+
+.textboxInput {
+    display: flex;
+    line-break: anywhere;
+    align-items: flex-start;
+}
+
+.profileImage {
+    width: 5vw;
+    height: 5vw;
+    margin-left: 1vw;
+}
+
+.likeImage {
+    width: 2.5vw;
+    height: 2.5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.comment {
+    line-break: anywhere;
+}
